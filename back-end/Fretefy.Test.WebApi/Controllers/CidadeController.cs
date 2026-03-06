@@ -17,26 +17,26 @@ namespace Fretefy.Test.WebApi.Controllers
             _cidadeService = cidadeService;
         }
 
-        [HttpGet]
-        public IActionResult List([FromQuery] string uf, [FromQuery] string terms)
-        {
-            IEnumerable<Cidade> cidades;
+        //[HttpGet]
+        //public IActionResult List([FromQuery] string uf, [FromQuery] string terms)
+        //{
+        //    IEnumerable<Cidade> cidades;
 
-            if (!string.IsNullOrEmpty(terms))
-                cidades = _cidadeService.Query(terms);
-            else if (!string.IsNullOrEmpty(uf))
-                cidades = _cidadeService.ListByUf(uf);
-            else
-                cidades = _cidadeService.List();
+        //    if (!string.IsNullOrEmpty(terms))
+        //        cidades = _cidadeService.Query(terms);
+        //    else if (!string.IsNullOrEmpty(uf))
+        //        cidades = _cidadeService.ListByUf(uf);
+        //    else
+        //        cidades = _cidadeService.List();
 
-            return Ok(cidades);
-        }
+        //    return Ok(cidades);
+        //}
 
-        [HttpGet("{id}")]
-        public IActionResult Get(Guid id)
-        {
-            var cidades = _cidadeService.Get(id);
-            return Ok(cidades);
-        }
+        //[HttpGet("{id}")]
+        //public IActionResult Get(Guid id)
+        //{
+        //    var cidades = _cidadeService.Get(id);
+        //    return Ok(cidades);
+        //}
     }
 }

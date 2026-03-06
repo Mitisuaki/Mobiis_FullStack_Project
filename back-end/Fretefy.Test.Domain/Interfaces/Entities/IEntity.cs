@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fretefy.Test.Domain.Entities
+namespace Fretefy.Test.Domain.Interfaces.Entities
 {
     public interface IEntity
     {

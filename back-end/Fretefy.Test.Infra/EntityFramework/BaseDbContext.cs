@@ -3,18 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fretefy.Test.Infra.EntityFramework
 {
-    public class TestDbContext : DbContext
+    public class BaseDbContext : DbContext
     {
-        public TestDbContext()
-        {
-
-        }
-
-        public TestDbContext(DbContextOptions<TestDbContext> options)
-            : base(options)
-        {
-            
-        }
+        public BaseDbContext(DbContextOptions<BaseDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,7 +14,8 @@ namespace Fretefy.Test.Infra.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CidadeMap());
+            base.OnModelCreating(modelBuilder);
+            MapeamentoEntidadesConfig.AdicionarMapeamentoEntidades(modelBuilder);
         }
     }
 }

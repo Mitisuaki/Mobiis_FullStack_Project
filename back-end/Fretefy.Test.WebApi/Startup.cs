@@ -1,43 +1,35 @@
-using Fretefy.Test.Domain.Interfaces;
-using Fretefy.Test.Domain.Interfaces.Repositories;
-using Fretefy.Test.Domain.Services;
-using Fretefy.Test.Infra.EntityFramework;
-using Fretefy.Test.Infra.EntityFramework.Repositories;
+using Fretefy.Test.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using static Fretefy.Test.Infra.Constantes.InfraConstants;
+
 
 namespace Fretefy.Test.WebApi
 {
     public class Startup
     {
+        private IConfiguration _configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<DbContext, TestDbContext>();
-            services.AddDbContext<TestDbContext>((provider, options) =>
+            services.InjetarDbContext(_configuration);
+            services.InjetarRepositories();
+            services.InjetarServicos();
+            services.InjetarBackgroundServices();
+            services.AddCors();
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
             {
-                options.UseSqlite("Data Source=Data\\Test.db");
+                c.SwaggerDoc(Swagger.Version, new Microsoft.OpenApi.Models.OpenApiInfo { Title = Swagger.Title, Version = Swagger.Version });
             });
-
-            ConfigureInfraService(services);
-            ConfigureDomainService(services);
-
-            services.AddMvc()
-                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest);
-        }
-
-        private void ConfigureDomainService(IServiceCollection services)
-        {
-            services.AddScoped<ICidadeService, CidadeService>();
-        }
-
-        private void ConfigureInfraService(IServiceCollection services)
-        {
-            services.AddScoped<ICidadeRepository, CidadeRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,10 +37,17 @@ namespace Fretefy.Test.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint(Swagger.URL, Swagger.Nome));
             }
 
+            app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseCors(x => x.AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader());
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

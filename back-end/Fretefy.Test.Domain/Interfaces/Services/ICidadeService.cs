@@ -1,14 +1,10 @@
 ﻿using Fretefy.Test.Domain.Entities;
-using System;
-using System.Collections.Generic;
+using Fretefy.Test.Domain.Interfaces.Services;
 
 namespace Fretefy.Test.Domain.Interfaces
 {
-    public interface ICidadeService
+    public interface ICidadeService: IBaseService<Cidade>
     {
-        Cidade Get(Guid id);
-        IEnumerable<Cidade> List();
-        IEnumerable<Cidade> ListByUf(string uf);
-        IEnumerable<Cidade> Query(string terms);
+
     }
 }

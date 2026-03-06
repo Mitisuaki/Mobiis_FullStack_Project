@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fretefy.Test.Infra.EntityFramework.Migrations
 {
-    [DbContext(typeof(TestDbContext))]
+    [DbContext(typeof(BaseDbContext))]
     [Migration("20201207211324_InitialCreate")]
     partial class InitialCreate
     {

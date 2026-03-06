@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fretefy.Test.Infra.EntityFramework.Migrations
 {
-    [DbContext(typeof(TestDbContext))]
+    [DbContext(typeof(BaseDbContext))]
     partial class TestDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
