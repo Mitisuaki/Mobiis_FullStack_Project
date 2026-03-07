@@ -5,30 +5,75 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\MensagensRegiaoControllerResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MensagensRegiaoControllerResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\MensagensRegiaoServiceResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MensagensRegiaoServiceResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ProgramLogResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ProgramLogResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\SincronizacaoIBGELogResource.Designer.cs">
+    <Compile Update="Resources\SincronizacaoGeograficaServiceLogResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>SincronizacaoIBGELogResource.resx</DependentUpon>
+      <DependentUpon>SincronizacaoGeograficaServiceLogResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validacao\ValidacaoCidadeResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ValidacaoCidadeResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validacao\ValidacaoEstadoResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ValidacaoEstadoResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Validacao\ValidacaoRegiaoResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ValidacaoRegiaoResource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\MensagensRegiaoControllerResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MensagensRegiaoControllerResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\MensagensRegiaoServiceResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MensagensRegiaoServiceResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\ProgramLogResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProgramLogResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\SincronizacaoIBGELogResource.resx">
+    <EmbeddedResource Update="Resources\SincronizacaoGeograficaServiceLogResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SincronizacaoIBGELogResource.Designer.cs</LastGenOutput>
+      <LastGenOutput>SincronizacaoGeograficaServiceLogResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validacao\ValidacaoCidadeResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidacaoCidadeResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validacao\ValidacaoEstadoResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidacaoEstadoResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Validacao\ValidacaoRegiaoResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidacaoRegiaoResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

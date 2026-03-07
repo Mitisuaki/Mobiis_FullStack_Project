@@ -1,42 +1,38 @@
-﻿using Fretefy.Test.Domain.Entities;
-using Fretefy.Test.Domain.Interfaces;
+﻿using Fretefy.Test.Application.Interfaces;
+using Fretefy.Test.Application.Models.Cidade;
+using Fretefy.Test.Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Fretefy.Test.WebApi.Controllers
 {
     [Route("api/cidade")]
     [ApiController]
-    public class CidadeController : ControllerBase
+    public class CidadeController : Controller
     {
-        private readonly ICidadeService _cidadeService;
+        private readonly ICidadeAppService _cidadeAppService;
 
-        public CidadeController(ICidadeService cidadeService)
+        public CidadeController(ICidadeAppService cidadeAppService)
         {
-            _cidadeService = cidadeService;
+            _cidadeAppService = cidadeAppService;
         }
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] string nome, 
+                                             [FromQuery] Guid? estadoId,
+                                             [FromQuery] int page = 1,
+                                             [FromQuery] int pageSize = 50,
+                                             CancellationToken cancellationToken = default)
+        {
+            if (estadoId.HasValue)
+            {
+                var cidadesPorEstado = await _cidadeAppService.ObterPorIdAsync(estadoId.Value, cancellationToken);
+                return Ok(cidadesPorEstado);
+            }
 
-        //[HttpGet]
-        //public IActionResult List([FromQuery] string uf, [FromQuery] string terms)
-        //{
-        //    IEnumerable<Cidade> cidades;
-
-        //    if (!string.IsNullOrEmpty(terms))
-        //        cidades = _cidadeService.Query(terms);
-        //    else if (!string.IsNullOrEmpty(uf))
-        //        cidades = _cidadeService.ListByUf(uf);
-        //    else
-        //        cidades = _cidadeService.List();
-
-        //    return Ok(cidades);
-        //}
-
-        //[HttpGet("{id}")]
-        //public IActionResult Get(Guid id)
-        //{
-        //    var cidades = _cidadeService.Get(id);
-        //    return Ok(cidades);
-        //}
+            PagedResult<CidadeDTO> cidadesPaginadas = await _cidadeAppService.ObterTodasPaginadoAsync(nome, page, pageSize, cancellationToken);
+            return Ok(cidadesPaginadas);
+        }
     }
 }

@@ -22,14 +22,14 @@ namespace Fretefy.Test.Domain.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class SincronizacaoIBGELogResource {
+    public class MensagensRegiaoControllerResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal SincronizacaoIBGELogResource() {
+        internal MensagensRegiaoControllerResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Fretefy.Test.Domain.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fretefy.Test.Domain.Resources.SincronizacaoIBGELogResource", typeof(SincronizacaoIBGELogResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fretefy.Test.Domain.Resources.MensagensRegiaoControllerResource", typeof(MensagensRegiaoControllerResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,38 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Falha ao sincronizar dados do IBGE. Uma nova tentativa será feita na próxima inicialização..
+        ///   Looks up a localized string similar to Região ativada com sucesso..
         /// </summary>
-        public static string ErroIBGE {
+        public static string RegiaoAtivadaComSucesso {
             get {
-                return ResourceManager.GetString("ErroIBGE", resourceCulture);
+                return ResourceManager.GetString("RegiaoAtivadaComSucesso", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tabela Cidade não populada. Iniciando sincronização com API do IBGE..
+        ///   Looks up a localized string similar to Região {0} atualizada com sucesso..
         /// </summary>
-        public static string InicializacaoIBGE {
+        public static string RegiaoAtualizadaComSucesso {
             get {
-                return ResourceManager.GetString("InicializacaoIBGE", resourceCulture);
+                return ResourceManager.GetString("RegiaoAtualizadaComSucesso", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dados do IBGE sincronizados com sucesso..
+        ///   Looks up a localized string similar to Região {0} cadastrada com sucesso..
         /// </summary>
-        public static string SucessoIBGE {
+        public static string RegiaoCriadaComSucesso {
             get {
-                return ResourceManager.GetString("SucessoIBGE", resourceCulture);
+                return ResourceManager.GetString("RegiaoCriadaComSucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Região inativada com sucesso..
+        /// </summary>
+        public static string RegiaoInativadaComSucesso {
+            get {
+                return ResourceManager.GetString("RegiaoInativadaComSucesso", resourceCulture);
             }
         }
     }

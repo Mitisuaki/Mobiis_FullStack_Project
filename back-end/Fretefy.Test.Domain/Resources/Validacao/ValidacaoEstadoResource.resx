@@ -117,13 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ErroIBGE" xml:space="preserve">
-    <value>Falha ao sincronizar dados do IBGE. Uma nova tentativa será feita na próxima inicialização.</value>
+  <data name="EstadoNomeObrigatorio" xml:space="preserve">
+    <value>O nome do estado é obrigatório.</value>
   </data>
-  <data name="InicializacaoIBGE" xml:space="preserve">
-    <value>Tabela Cidade não populada. Iniciando sincronização com API do IBGE.</value>
-  </data>
-  <data name="SucessoIBGE" xml:space="preserve">
-    <value>Dados do IBGE sincronizados com sucesso.</value>
+  <data name="EstadoSiglaInvalida" xml:space="preserve">
+    <value>A sigla do estado deve ter exatamente 2 caracteres.</value>
   </data>
 </root>

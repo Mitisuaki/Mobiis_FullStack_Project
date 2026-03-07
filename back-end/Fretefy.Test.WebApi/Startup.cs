@@ -22,6 +22,7 @@ namespace Fretefy.Test.WebApi
         {
             services.InjetarDbContext(_configuration);
             services.InjetarRepositories();
+            services.InjetarGateways();
             services.InjetarServicos();
             services.InjetarBackgroundServices();
             services.AddCors();

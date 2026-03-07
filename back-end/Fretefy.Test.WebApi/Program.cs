@@ -1,5 +1,5 @@
-using Fretefy.Test.Infra.EntityFramework;
 using Fretefy.Test.Domain.Resources;
+using Fretefy.Test.Infra.EntityFramework;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +15,7 @@ namespace Fretefy.Test.WebApi
         {
             IHost host = CreateHostBuilder(args).Build();
 
-            using var scope = host.Services.CreateScope();
+            using IServiceScope scope = host.Services.CreateScope();
             ILogger<Program> logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
             BaseDbContext context = scope.ServiceProvider.GetRequiredService<BaseDbContext>();
             try

@@ -1,5 +1,4 @@
-﻿using Fretefy.Test.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,10 +9,16 @@ namespace Fretefy.Test.Domain.Interfaces.Repositories
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
+        Task AdicionarAsync(TEntity entitie, CancellationToken cancellationToken = default);
         Task AdicionarListaAsync(List<TEntity> entities, CancellationToken cancellationToken = default);
         Task<int> SalvarAsync(CancellationToken cancellationToken = default);
-        Task<TEntity> SelecionarEntidadeAsync(Expression<Func<TEntity, bool>> expression);
-        Task<List<TEntity>> SelecionarListaAsync(Expression<Func<TEntity, bool>> expression);
-        IQueryable<TEntity> SelecionarTodos();
+        Task<TEntity> SelecionarEntidadeAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
+        Task<List<TEntity>> SelecionarListaAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
+        Task<List<TEntity>> SelecionarTodos(CancellationToken cancellationToken = default);
+        Task<DTOs.PagedResult<TEntity>> SelecionarPaginadoAsync(Expression<Func<TEntity, bool>> expression, 
+                                                                int page, int pageSize, 
+                                                                Expression<Func<TEntity, object>> orderBy, 
+                                                                CancellationToken cancellationToken = default, 
+                                                                params string[] includes);
     }
 }

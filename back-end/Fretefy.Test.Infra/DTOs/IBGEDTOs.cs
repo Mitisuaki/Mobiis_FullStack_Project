@@ -27,5 +27,8 @@ namespace Fretefy.Test.Infra.DTOs
     {
         [JsonPropertyName("Sigla")]
         public string Sigla { get; set; }
-    }
+
+        [JsonPropertyName("Nome")]
+        public string Nome { get; set; }
+    }    
 }

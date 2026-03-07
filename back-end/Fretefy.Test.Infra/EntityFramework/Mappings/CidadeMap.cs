@@ -12,8 +12,12 @@ namespace Fretefy.Test.Infra.EntityFramework.Mappings
 
             builder.HasKey(p => p.Id);
             builder.Property(x => x.Id).HasColumnName("ID").IsRequired();
-            builder.Property(p => p.Nome).HasColumnName("NOME").HasMaxLength(250).IsRequired();
-            builder.Property(p => p.UF).HasColumnName("UF").HasMaxLength(2).IsRequired();
+            builder.Property(p => p.Nome).HasColumnName("NOME").HasMaxLength(50).IsRequired();
+            builder.Property(p => p.EstadoId).HasColumnName("ESTADO_ID").HasMaxLength(2).IsRequired();
+
+            builder.HasOne(x => x.Estado).WithMany().HasForeignKey(x => x.EstadoId);
+
+            builder.HasIndex(x => x.Nome).IsUnique();
         }
     }
 }
