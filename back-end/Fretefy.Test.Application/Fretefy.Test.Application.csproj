@@ -8,8 +8,4 @@
     <ProjectReference Include="..\Fretefy.Test.Domain\Fretefy.Test.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Estado\" />
-  </ItemGroup>
-
 </Project>
