@@ -21,12 +21,12 @@ namespace Fretefy.Test.WebApi.Controllers
         {
             _cidadeAppService = cidadeAppService;
         }
-        [HttpGet]
+        [HttpGet("{cidadeId}")]
         public async Task<IActionResult> Get([FromQuery] Guid cidadeId, CancellationToken cancellationToken = default)
         {
             if (cidadeId == Guid.Empty)
             {
-                return BadRequest(MensagensCidadeControllerResource.CidadeIdInvalido);
+                return BadRequest(new { Mensagens = MensagensCidadeControllerResource.CidadeIdInvalido});
             }
 
             CidadeDTO cidadesPorEstado = await _cidadeAppService.ObterPorIdAsync(cidadeId, cancellationToken);
@@ -42,14 +42,15 @@ namespace Fretefy.Test.WebApi.Controllers
         public async Task<IActionResult> GetPaginado([FromQuery] string nome, 
                                                      [FromQuery] int page = 1,
                                                      [FromQuery] int pageSize = 50,
+                                                     [FromQuery] Guid[] estadosIgnorados = null,
                                                      CancellationToken cancellationToken = default)
         {
             if (page <= 0 || pageSize <= 0)
             {
-                return BadRequest(MensagensCidadeControllerResource.ConfigPaginacaoInvalido);
+                return BadRequest(new { Mensagens = MensagensCidadeControllerResource.ConfigPaginacaoInvalido});
             }
 
-            PagedResult<CidadeDTO> cidadesPaginadas = await _cidadeAppService.ObterTodasPaginadoAsync(nome, page, pageSize, cancellationToken);
+            PagedResult<CidadeDTO> cidadesPaginadas = await _cidadeAppService.ObterTodasPaginadoAsync(nome, page, pageSize, estadosIgnorados, cancellationToken);
             
             if (cidadesPaginadas != null && cidadesPaginadas.Items.Any())
             {

@@ -121,19 +121,22 @@
     <value>É obrigatório informar ao menos uma cidade ou um estado para compor a região.</value>
   </data>
   <data name="RegiaoServiceCidadeComEstadoIncluso" xml:space="preserve">
-    <value>A cidade {0} esta inclusa na UF {1}.</value>
+    <value>A cidade "{0}" esta inclusa na UF {1}.</value>
   </data>
   <data name="RegiaoServiceCidadeDuplicada" xml:space="preserve">
-    <value>A cidade {0} foi informada mais de uma vez.</value>
+    <value>A cidade "{0}" foi informada mais de uma vez.</value>
   </data>
   <data name="RegiaoServiceCidadeNaoEncontrada" xml:space="preserve">
-    <value>A cidade com ID {0} não existe.</value>
+    <value>A cidade com ID "{0}" não existe.</value>
   </data>
   <data name="RegiaoServiceEstadoDuplicado" xml:space="preserve">
-    <value>O estado {0} foi informado mais de uma vez.</value>
+    <value>O estado "{0}" foi informado mais de uma vez.</value>
   </data>
   <data name="RegiaoServiceEstadoNaoEncontado" xml:space="preserve">
-    <value>O estado com ID {0} não existe.</value>
+    <value>O estado com ID "{0}" não existe.</value>
+  </data>
+  <data name="RegiaoServiceRegiaoJaExiste" xml:space="preserve">
+    <value>O nome de região "{0}" já está em uso.</value>
   </data>
   <data name="RegiaoServiceRegiaoNaoEncontrada" xml:space="preserve">
     <value>Região não encontrada.</value>

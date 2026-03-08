@@ -97,6 +97,15 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Região excluída com sucesso..
+        /// </summary>
+        public static string RegiaoExcluidaComSucesso {
+            get {
+                return ResourceManager.GetString("RegiaoExcluidaComSucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parametro regiaoId inválido..
         /// </summary>
         public static string RegiaoIdInvalido {

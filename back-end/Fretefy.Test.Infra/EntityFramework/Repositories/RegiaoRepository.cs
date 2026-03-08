@@ -17,6 +17,7 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
         {
             return await _dbSet.Include(r => r.RelacionamentosRegiaoCidadesUF)
                                .ThenInclude(r => r.Cidade)
+                               .ThenInclude(r => r.Estado)
                                .Include(r => r.RelacionamentosRegiaoCidadesUF)
                                .ThenInclude(r => r.Estado)
                                .FirstOrDefaultAsync(expression, cancellationToken);

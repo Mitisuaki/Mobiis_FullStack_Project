@@ -40,9 +40,9 @@ namespace Fretefy.Test.Application.Services
             };
         }
 
-        public async Task<PagedResult<CidadeDTO>> ObterTodasPaginadoAsync(string nome, int page, int pageSize, CancellationToken cancellationToken)
+        public async Task<PagedResult<CidadeDTO>> ObterTodasPaginadoAsync(string nome, int page, int pageSize, Guid[] estadosIgnorados = null, CancellationToken cancellationToken = default)
         {
-            PagedResult<Cidade> pagedResult = await _cidadeService.SelecionarPaginadoAsync(nome, page, pageSize, cancellationToken);
+            PagedResult<Cidade> pagedResult = await _cidadeService.SelecionarPaginadoAsync(nome, page, pageSize, estadosIgnorados, cancellationToken);
 
             return new PagedResult<CidadeDTO>
             {
@@ -57,7 +57,7 @@ namespace Fretefy.Test.Application.Services
             };
         }      
         
-        public async Task<List<CidadeDTO>> SelecionarTodas(CancellationToken cancellationToken)
+        public async Task<List<CidadeDTO>> SelecionarTodas(CancellationToken cancellationToken = default)
         {
             List<Cidade> cidades = await _cidadeService.SelecionarTodosAsyncComInclude(cancellationToken);
 

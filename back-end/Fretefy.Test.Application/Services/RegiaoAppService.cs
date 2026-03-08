@@ -1,7 +1,10 @@
 ﻿using Fretefy.Test.Application.Interfaces;
+using Fretefy.Test.Application.Models.Cidade;
+using Fretefy.Test.Application.Models.Estado;
 using Fretefy.Test.Application.Models.Regiao;
 using Fretefy.Test.Domain.Entities;
 using Fretefy.Test.Domain.Interfaces.Services;
+using Fretefy.Test.Domain.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,13 +38,24 @@ namespace Fretefy.Test.Application.Services
                 Id = regiao.Id,
                 Nome = regiao.Nome,
                 Ativo = regiao.Ativo,
-                CidadesIds = regiao.RelacionamentosRegiaoCidadesUF
+                Cidades = regiao.RelacionamentosRegiaoCidadesUF
                     .Where(r => r.CidadeId.HasValue)
-                    .Select(r => r.CidadeId.Value)
+                    .Select(r => new CidadeDTO
+                    {
+                        Id = r.CidadeId.Value,
+                        Nome = r.Cidade != null ? r.Cidade.Nome : string.Empty,
+                        Estado = r.Cidade.Estado != null ? r.Cidade.Estado.Sigla : string.Empty,
+                        EstadoId = r.EstadoId ?? Guid.Empty,
+                    })
                     .ToList(),
-                EstadosIds = regiao.RelacionamentosRegiaoCidadesUF
+                Estados = regiao.RelacionamentosRegiaoCidadesUF
                     .Where(r => r.EstadoId.HasValue)
-                    .Select(r => r.EstadoId.Value)
+                    .Select(r => new EstadoDTO
+                    {
+                        Id = r.EstadoId.Value,
+                        Nome = r.Estado != null ? r.Estado.Nome : string.Empty,
+                        Sigla = r.Estado != null ? r.Estado.Sigla : string.Empty,
+                    })
                     .ToList()
             };
         }
@@ -90,7 +104,7 @@ namespace Fretefy.Test.Application.Services
             await _regiaoService.AtualizarAsync(regiaoId, regiao.Nome, regiao.CidadesIds, regiao.EstadosIds, cancellationToken);
         }
 
-        public async Task AtivarAsync(Guid id, CancellationToken cancellationToken)
+        public async Task AtivarAsync(Guid id, CancellationToken cancellationToken = default)
         {
             await _regiaoService.AtivarAsync(id, cancellationToken);
         }
@@ -98,6 +112,19 @@ namespace Fretefy.Test.Application.Services
         public async Task InativarAsync(Guid regiaoId, CancellationToken cancellationToken = default)
         {
             await _regiaoService.InativarAsync(regiaoId, cancellationToken);
+        }
+
+        public async Task ExcluirEntidade(Guid regiaoId, CancellationToken cancellationToken = default)
+        {
+            Regiao regiao = await _regiaoService.SelecionarEntidadeAsyncComInclude(r => r.Id == regiaoId, cancellationToken);
+
+            if (regiao == null)
+            {
+                _regiaoService.AdicionarMensagem(MensagensRegiaoServiceResource.RegiaoServiceRegiaoNaoEncontrada);
+                return;
+            }
+
+            await _regiaoService.ExcluirEntidade(regiao, cancellationToken);
         }
     }
 }

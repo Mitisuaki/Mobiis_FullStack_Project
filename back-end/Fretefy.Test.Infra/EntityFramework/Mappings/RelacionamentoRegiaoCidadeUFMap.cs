@@ -11,12 +11,12 @@ namespace Fretefy.Test.Infra.EntityFramework.Mappings
             builder.ToTable("REL_REGIAO_CIDADE");
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Id).HasColumnName("ID").IsRequired();
+            builder.Property(x => x.Id).HasColumnName("ID").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.RegiaoId).HasColumnName("REGIAO_ID").IsRequired();
             builder.Property(x => x.CidadeId).HasColumnName("CIDADE_ID").IsRequired(false);
             builder.Property(x => x.EstadoId).HasColumnName("ESTADO_ID").IsRequired(false);
 
-            builder.HasOne(x => x.Regiao).WithMany().HasForeignKey(x => x.RegiaoId);
+            builder.HasOne(x => x.Regiao).WithMany().HasForeignKey(x => x.RegiaoId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.Cidade).WithMany().HasForeignKey(x => x.CidadeId);
             builder.HasOne(x => x.Estado).WithMany().HasForeignKey(x => x.EstadoId);
 

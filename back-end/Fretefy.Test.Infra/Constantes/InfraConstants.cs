@@ -14,6 +14,10 @@
             public const string URL = "/swagger/v1/swagger.json";
             public const string Nome = Title + " " + Version;
         }
+        public static class CORS
+        {
+            public static readonly string[] AllowedOrigins = { "http://localhost:4200" };
+        }
 
         public static class APIsExternas
         {

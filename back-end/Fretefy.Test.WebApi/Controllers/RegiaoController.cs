@@ -31,7 +31,7 @@ namespace Fretefy.Test.WebApi.Controllers
         {
             if (regiaoId == Guid.Empty)
             {
-                return BadRequest(MensagensRegiaoControllerResource.RegiaoIdInvalido);
+                return BadRequest(new { Mensagens = MensagensRegiaoControllerResource.RegiaoIdInvalido});
             }
 
             RegiaoDetalheDTO regiao = await _regiaoAppService.ObterPorIdAsync(regiaoId, cancellationToken);
@@ -57,17 +57,17 @@ namespace Fretefy.Test.WebApi.Controllers
         {
             if (regiao == null)
             {
-                return BadRequest(MensagensRegiaoControllerResource.RegiaoObrigatoria);
+                return BadRequest(new { Mensagens = MensagensRegiaoControllerResource.RegiaoObrigatoria});
             }
 
             await _regiaoAppService.SalvarAsync(regiao, cancellationToken);
 
             if (_regiaoAppService.Invalido)
             {
-                return BadRequest(new { erros = _regiaoAppService.Mensagens });
+                return BadRequest(new { _regiaoAppService.Mensagens });
             }
 
-            return Ok(new { mensagem = string.Format(MensagensRegiaoControllerResource.RegiaoCriadaComSucesso, regiao.Nome) });
+            return Ok(new { Mensagens = string.Format(MensagensRegiaoControllerResource.RegiaoCriadaComSucesso, regiao.Nome) });
         }
 
         [HttpPut("{regiaoId}")]
@@ -75,22 +75,22 @@ namespace Fretefy.Test.WebApi.Controllers
         {
             if (regiaoId == Guid.Empty)
             {
-                return BadRequest(MensagensRegiaoControllerResource.RegiaoIdInvalido);
+                return BadRequest(new { Mensagens = MensagensRegiaoControllerResource.RegiaoIdInvalido});
             }
 
             if (regiao == null)
             {
-                return BadRequest(MensagensRegiaoControllerResource.RegiaoObrigatoria);
+                return BadRequest(new { Mensagens = MensagensRegiaoControllerResource.RegiaoObrigatoria});
             }
 
             await _regiaoAppService.AtualizarAsync(regiaoId, regiao, cancellationToken);
 
             if (_regiaoAppService.Invalido)
             {
-                return BadRequest(new { erros = _regiaoAppService.Mensagens });
+                return BadRequest(new { _regiaoAppService.Mensagens });
             }
 
-            return Ok(new { mensagem = string.Format(MensagensRegiaoControllerResource.RegiaoAtualizadaComSucesso, regiao.Nome) });
+            return Ok(new { Mensagens = string.Format(MensagensRegiaoControllerResource.RegiaoAtualizadaComSucesso, regiao.Nome) });
         }
 
         [HttpPut("{regiaoId}/ativar")]
@@ -98,7 +98,7 @@ namespace Fretefy.Test.WebApi.Controllers
         {
             if (regiaoId == Guid.Empty)
             {
-                return BadRequest(MensagensRegiaoControllerResource.RegiaoIdInvalido);
+                return BadRequest(new { Mensagens = MensagensRegiaoControllerResource.RegiaoIdInvalido});
             }
 
             await _regiaoAppService.AtivarAsync(regiaoId, cancellationToken);
@@ -108,7 +108,7 @@ namespace Fretefy.Test.WebApi.Controllers
                 return NotFound();
             }
 
-            return Ok(new { mensagem = MensagensRegiaoControllerResource.RegiaoAtivadaComSucesso });
+            return Ok(new { Mensagens = MensagensRegiaoControllerResource.RegiaoAtivadaComSucesso });
         }
 
         [HttpPut("{regiaoId}/inativar")]
@@ -116,7 +116,7 @@ namespace Fretefy.Test.WebApi.Controllers
         {
             if (regiaoId == Guid.Empty)
             {
-                return BadRequest(MensagensRegiaoControllerResource.RegiaoIdInvalido);
+                return BadRequest(new { Mensagens = MensagensRegiaoControllerResource.RegiaoIdInvalido });
             }
 
             await _regiaoAppService.InativarAsync(regiaoId, cancellationToken);
@@ -126,7 +126,25 @@ namespace Fretefy.Test.WebApi.Controllers
                 return NotFound();
             }
 
-            return Ok(new { mensagem = MensagensRegiaoControllerResource.RegiaoInativadaComSucesso });
+            return Ok(new { Mensagens = MensagensRegiaoControllerResource.RegiaoInativadaComSucesso });
+        }
+
+        [HttpDelete("{regiaoId}")]
+        public async Task<IActionResult> Delete(Guid regiaoId, CancellationToken cancellationToken)
+        {
+            if (regiaoId == Guid.Empty)
+            {
+                return BadRequest(new { Mensagens = MensagensRegiaoControllerResource.RegiaoIdInvalido });
+            }
+
+            await _regiaoAppService.ExcluirEntidade(regiaoId, cancellationToken);
+
+            if (_regiaoAppService.Invalido)
+            {
+                return NotFound();
+            }
+
+            return Ok(new { Mensagens = MensagensRegiaoControllerResource.RegiaoExcluidaComSucesso });
         }
 
         [HttpGet("exportar")]
@@ -134,7 +152,7 @@ namespace Fretefy.Test.WebApi.Controllers
         {
             if (!Enum.IsDefined(typeof(TipoExportacaoEnum), formato))
             {
-                return BadRequest(MensagensRegiaoControllerResource.FormatoExportacaoInvalido);
+                return BadRequest(new { Mensagens = MensagensRegiaoControllerResource.FormatoExportacaoInvalido});
             }
 
             (Stream stream, string contentType, string fileName) = await _exportacaoService.ExportarRegioesAsync(formato, ativo, cancellationToken);

@@ -13,7 +13,7 @@ namespace Fretefy.Test.Application.Interfaces
         bool Invalido { get; }
         IReadOnlyCollection<string> Mensagens { get; }
         Task<CidadeDTO> ObterPorIdAsync(Guid cidadeId, CancellationToken cancellationToken = default);
-        Task<PagedResult<CidadeDTO>> ObterTodasPaginadoAsync(string nome, int page, int pageSize, CancellationToken cancellationToken);
-        Task<List<CidadeDTO>> SelecionarTodas(CancellationToken cancellationToken);
+        Task<PagedResult<CidadeDTO>> ObterTodasPaginadoAsync(string nome, int page, int pageSize, Guid[] estadosIgnorados = null, CancellationToken cancellationToken = default);
+        Task<List<CidadeDTO>> SelecionarTodas(CancellationToken cancellationToken = default);
     }
 }

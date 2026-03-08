@@ -32,7 +32,7 @@ namespace Fretefy.Test.Domain.Services
             _logger = logger;
         }
 
-        public async Task SincronizarCidadesEUFIBGEAsync(CancellationToken cancellationToken)
+        public async Task SincronizarCidadesEUFIBGEAsync(CancellationToken cancellationToken = default)
         {
             bool cidadesAny = await _cidadeService.ExisteRegistrosAsync(cancellationToken);
             bool estadosAny = await _estadoService.ExisteRegistrosAsync(cancellationToken);

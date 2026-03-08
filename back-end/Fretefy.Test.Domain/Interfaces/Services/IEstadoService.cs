@@ -7,6 +7,6 @@ namespace Fretefy.Test.Domain.Interfaces.Services
 {
     public interface IEstadoService : IBaseService<Estado>
     {
-        Task<List<Estado>> SelecionarListaAsync(string uf, CancellationToken cancellationToken);
+        Task<List<Estado>> SelecionarListaAsync(string uf, CancellationToken cancellationToken = default);
     }
 }

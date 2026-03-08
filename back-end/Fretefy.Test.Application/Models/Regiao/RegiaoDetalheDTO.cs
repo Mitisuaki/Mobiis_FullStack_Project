@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Fretefy.Test.Application.Models.Cidade;
+using Fretefy.Test.Application.Models.Estado;
+using System;
 using System.Collections.Generic;
 
 namespace Fretefy.Test.Application.Models.Regiao
@@ -8,7 +10,7 @@ namespace Fretefy.Test.Application.Models.Regiao
         public Guid Id { get; set; }
         public string Nome { get; set; }
         public bool Ativo { get; set; }
-        public List<Guid> CidadesIds { get; set; } = new List<Guid>();
-        public List<Guid> EstadosIds { get; set; } = new List<Guid>();
+        public List<CidadeDTO> Cidades { get; set; } = new List<CidadeDTO>();
+        public List<EstadoDTO> Estados { get; set; } = new List<EstadoDTO>();
     }
 }

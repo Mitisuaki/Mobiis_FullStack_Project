@@ -7,6 +7,6 @@ namespace Fretefy.Test.Domain.Interfaces.Services
 {
     public interface IExportacaoService
     {
-        Task<(Stream, string, string)> ExportarRegioesAsync(TipoExportacaoEnum formato, bool? ativo, CancellationToken cancellationToken);
+        Task<(Stream, string, string)> ExportarRegioesAsync(TipoExportacaoEnum formato, bool? ativo, CancellationToken cancellationToken = default);
     }
 }

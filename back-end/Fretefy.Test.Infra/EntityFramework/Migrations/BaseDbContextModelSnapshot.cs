@@ -165,11 +165,13 @@ namespace Fretefy.Test.Infra.EntityFramework.Migrations
                 {
                     b.HasOne("Fretefy.Test.Domain.Entities.Cidade", "Cidade")
                         .WithMany()
-                        .HasForeignKey("CidadeId");
+                        .HasForeignKey("CidadeId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Fretefy.Test.Domain.Entities.Estado", "Estado")
                         .WithMany()
-                        .HasForeignKey("EstadoId");
+                        .HasForeignKey("EstadoId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Fretefy.Test.Domain.Entities.Regiao", "Regiao")
                         .WithMany()

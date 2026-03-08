@@ -1,4 +1,5 @@
 ﻿using Fretefy.Test.Domain.Entities;
+using Fretefy.Test.Domain.Interfaces.Entities;
 using Fretefy.Test.Domain.Interfaces.Notifications;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,9 @@ namespace Fretefy.Test.Domain.Interfaces.Services
         Task<List<Regiao>> SelecionarTodosAsyncComInclude(CancellationToken cancellationToken = default);
         Task SalvarRegiaoAsync(string nome, List<Guid> cidadesIds, List<Guid> estadosIds, CancellationToken cancellationToken = default);
         Task AtualizarAsync(Guid regiaoId, string nome, List<Guid> cidadesIds, List<Guid> estadosIds, CancellationToken cancellationToken = default);
-        Task AtivarAsync(Guid id, CancellationToken cancellationToken);
+        Task AtivarAsync(Guid id, CancellationToken cancellationToken = default);
         Task InativarAsync(Guid regiaoId, CancellationToken cancellationToken = default);
+        Task ExcluirEntidade(Regiao entidade, CancellationToken cancellationToken = default);
+        Task ExcluirEntidade(Regiao[] entidade, CancellationToken cancellationToken = default);
     }
 }

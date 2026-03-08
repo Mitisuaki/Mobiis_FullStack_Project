@@ -61,7 +61,7 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
             return await _dbSet.ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<PagedResult<TEntity>> SelecionarPaginadoAsync(Expression<Func<TEntity, bool>> expression,
+        public virtual async Task<PagedResult<TEntity>> SelecionarPaginadoAsync(Expression<Func<TEntity, bool>> filtro,
                                                                                 int page, int pageSize, 
                                                                                 Expression<Func<TEntity, object>> orderBy,
                                                                                 CancellationToken cancellationToken = default,
@@ -77,9 +77,9 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
                 }
             }
 
-            if (expression != null)
+            if (filtro != null)
             {
-                query = query.Where(expression);
+                query = query.Where(filtro);
             }
 
             int total = await query.CountAsync(cancellationToken);
@@ -94,6 +94,16 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
                 TotalItems = total,
                 Items = items
             };
+        }
+
+        public virtual void ExcluirEntidade(TEntity entidade)
+        {
+            _dbContext.RemoveRange(entidade);
+        }
+
+        public virtual void ExcluirEntidade(TEntity[] entidade)
+        {
+            _dbContext.RemoveRange(entidade);
         }
     }
 }

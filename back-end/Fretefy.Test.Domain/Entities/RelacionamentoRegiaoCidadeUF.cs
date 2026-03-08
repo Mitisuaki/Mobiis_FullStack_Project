@@ -17,7 +17,6 @@ namespace Fretefy.Test.Domain.Entities
 
         public RelacionamentoRegiaoCidadeUF(Guid regiaoId, Guid? cidadeId, Guid? estadoId)
         {
-            Id = Guid.NewGuid();
             RegiaoId = regiaoId;
             CidadeId = cidadeId;
             EstadoId = estadoId;

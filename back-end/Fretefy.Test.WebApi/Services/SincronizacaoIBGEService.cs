@@ -16,7 +16,7 @@ namespace Fretefy.Test.WebApi.Services
             _serviceProvider = serviceProvider;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken cancellationToken = default)
         {
             using IServiceScope scope = _serviceProvider.CreateScope();
             ISincronizacaoGeograficaService sincronizacaoCidadeService = scope.ServiceProvider.GetRequiredService<ISincronizacaoGeograficaService>();

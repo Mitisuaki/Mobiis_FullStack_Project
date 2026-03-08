@@ -70,7 +70,7 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A cidade {0} esta inclusa na UF {1}..
+        ///   Looks up a localized string similar to A cidade &quot;{0}&quot; esta inclusa na UF {1}..
         /// </summary>
         public static string RegiaoServiceCidadeComEstadoIncluso {
             get {
@@ -79,7 +79,7 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A cidade {0} foi informada mais de uma vez..
+        ///   Looks up a localized string similar to A cidade &quot;{0}&quot; foi informada mais de uma vez..
         /// </summary>
         public static string RegiaoServiceCidadeDuplicada {
             get {
@@ -88,7 +88,7 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A cidade com ID {0} não existe..
+        ///   Looks up a localized string similar to A cidade com ID &quot;{0}&quot; não existe..
         /// </summary>
         public static string RegiaoServiceCidadeNaoEncontrada {
             get {
@@ -97,7 +97,7 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O estado {0} foi informado mais de uma vez..
+        ///   Looks up a localized string similar to O estado &quot;{0}&quot; foi informado mais de uma vez..
         /// </summary>
         public static string RegiaoServiceEstadoDuplicado {
             get {
@@ -106,11 +106,20 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O estado com ID {0} não existe..
+        ///   Looks up a localized string similar to O estado com ID &quot;{0}&quot; não existe..
         /// </summary>
         public static string RegiaoServiceEstadoNaoEncontado {
             get {
                 return ResourceManager.GetString("RegiaoServiceEstadoNaoEncontado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O nome de região &quot;{0}&quot; já está em uso..
+        /// </summary>
+        public static string RegiaoServiceRegiaoJaExiste {
+            get {
+                return ResourceManager.GetString("RegiaoServiceRegiaoJaExiste", resourceCulture);
             }
         }
         

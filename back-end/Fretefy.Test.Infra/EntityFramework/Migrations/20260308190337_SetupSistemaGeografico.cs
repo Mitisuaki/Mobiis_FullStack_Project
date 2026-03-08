@@ -77,14 +77,12 @@ namespace Fretefy.Test.Infra.EntityFramework.Migrations
                         name: "FK_REL_REGIAO_CIDADE_CIDADE_CIDADE_ID",
                         column: x => x.CIDADE_ID,
                         principalTable: "CIDADE",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_REL_REGIAO_CIDADE_ESTADO_ESTADO_ID",
                         column: x => x.ESTADO_ID,
                         principalTable: "ESTADO",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_REL_REGIAO_CIDADE_REGIAO_REGIAO_ID",
                         column: x => x.REGIAO_ID,

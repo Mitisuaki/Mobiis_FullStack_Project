@@ -17,7 +17,7 @@ namespace Fretefy.Test.Domain.Services
             _estadoRepository = estadoRepository;
         }
 
-        public async Task<List<Estado>> SelecionarListaAsync(string uf, CancellationToken cancellationToken)
+        public async Task<List<Estado>> SelecionarListaAsync(string uf, CancellationToken cancellationToken = default)
         {
             List<Estado> estados;
 
@@ -27,7 +27,7 @@ namespace Fretefy.Test.Domain.Services
             }
             else
             {
-                estados = await _estadoRepository.SelecionarListaAsync(e => e.Nome.Contains(uf) || e.Sigla.Contains(uf), cancellationToken);
+                estados = await _estadoRepository.SelecionarListaAsync(e => e.Nome.ToLower().Contains(uf.ToLower()) || e.Sigla.ToLower().Contains(uf.ToLower()), cancellationToken);
             }
 
             return estados.OrderBy(e => e.Nome).ToList();

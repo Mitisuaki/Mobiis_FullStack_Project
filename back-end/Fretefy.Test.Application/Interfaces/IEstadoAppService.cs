@@ -7,6 +7,6 @@ namespace Fretefy.Test.Application.Interfaces
 {
     public interface IEstadoAppService
     {
-        Task<List<EstadoDTO>> SelecionarListaAsync(string uf, CancellationToken cancellationToken);
+        Task<List<EstadoDTO>> SelecionarListaAsync(string uf, CancellationToken cancellationToken = default);
     }
 }

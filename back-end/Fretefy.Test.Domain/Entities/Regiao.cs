@@ -71,16 +71,29 @@ namespace Fretefy.Test.Domain.Entities
                 return; 
             }
 
-            RelacionamentosRegiaoCidadesUF.Clear();
+            List<RelacionamentoRegiaoCidadeUF> paraRemover = RelacionamentosRegiaoCidadesUF.Where(r =>(r.CidadeId.HasValue && !cidadesIds.Contains(r.CidadeId.Value)) 
+                                                                                                   || (r.EstadoId.HasValue && !estadosIds.Contains(r.EstadoId.Value))
+                                                                                                 ).ToList();
 
-            if (cidadesIds != null)
+            foreach (RelacionamentoRegiaoCidadeUF relacionamento in paraRemover)
             {
-                RelacionamentosRegiaoCidadesUF.AddRange(cidadesIds.Select(cId => new RelacionamentoRegiaoCidadeUF(Id, cId, null)));
+                RelacionamentosRegiaoCidadesUF.Remove(relacionamento);
             }
 
-            if (estadosIds != null)
+            foreach (Guid cId in cidadesIds)
             {
-                RelacionamentosRegiaoCidadesUF.AddRange(estadosIds.Select(eId => new RelacionamentoRegiaoCidadeUF(Id, null, eId)));
+                if (!RelacionamentosRegiaoCidadesUF.Any(r => r.CidadeId == cId))
+                {
+                    RelacionamentosRegiaoCidadesUF.Add(new RelacionamentoRegiaoCidadeUF(Id, cId, null));
+                }
+            }
+
+            foreach (Guid eId in estadosIds)
+            {
+                if (!RelacionamentosRegiaoCidadesUF.Any(r => r.EstadoId == eId))
+                {
+                    RelacionamentosRegiaoCidadesUF.Add(new RelacionamentoRegiaoCidadeUF(Id, null, eId));
+                }
             }
         }
     }

@@ -70,7 +70,7 @@ namespace Fretefy.Test.Domain.Resources.Validacao {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A região deve ter pelo menos uma cidade ou uma UF vinculada..
+        ///   Looks up a localized string similar to É obrigatório informar ao menos uma cidade ou um estado para compor a região..
         /// </summary>
         public static string RegiaoSemCidadeUF {
             get {

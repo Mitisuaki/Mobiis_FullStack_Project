@@ -1,4 +1,5 @@
 ﻿using Fretefy.Test.Domain.Entities;
+using Fretefy.Test.Domain.Interfaces.Entities;
 using Fretefy.Test.Domain.Interfaces.Repositories;
 using Fretefy.Test.Domain.Interfaces.Services;
 using Fretefy.Test.Domain.Resources;
@@ -37,12 +38,15 @@ namespace Fretefy.Test.Domain.Services
         }
         public async Task SalvarRegiaoAsync(string nome, List<Guid> cidadesIds, List<Guid> estadosIds, CancellationToken cancellationToken = default)
         {
-            (cidadesIds, estadosIds) = await ValidarCidadesEEstados(cidadesIds, estadosIds);
+            bool regiaoExiste = await _regiaoRepository.ExisteEntidadeAsync(r => r.Nome.Contains(nome));
 
-            if (Invalido)
+            if (regiaoExiste)
             {
+                AdicionarMensagem(string.Format(MensagensRegiaoServiceResource.RegiaoServiceRegiaoJaExiste, nome));
                 return;
             }
+
+            (cidadesIds, estadosIds) = await ValidarCidadesEEstados(cidadesIds, estadosIds);
 
             Regiao regiao = new Regiao(nome, cidadesIds, estadosIds);
 
@@ -63,8 +67,6 @@ namespace Fretefy.Test.Domain.Services
 
             if (!cidadesIds.Any() && !estadosIds.Any())
             {
-                AdicionarMensagem(MensagensRegiaoServiceResource.RegiaoSemCidadeUF);
-
                 return (cidadesIds, estadosIds);
             }
 
@@ -107,7 +109,7 @@ namespace Fretefy.Test.Domain.Services
 
             return (cidadesIds, estadosIds);
         }
-        public async Task AtivarAsync(Guid id, CancellationToken cancellationToken)
+        public async Task AtivarAsync(Guid id, CancellationToken cancellationToken = default)
         {
             Regiao regiao = await _regiaoRepository.SelecionarEntidadeAsync(r => r.Id == id, cancellationToken);
 
@@ -137,7 +139,7 @@ namespace Fretefy.Test.Domain.Services
         public async Task AtualizarAsync(Guid regiaoId, string nome, List<Guid> cidadesIds, List<Guid> estadosIds, CancellationToken cancellationToken = default)
         {
             
-            Regiao regiao = await _regiaoRepository.SelecionarEntidadeAsync(r => r.Id == regiaoId, cancellationToken);
+            Regiao regiao = await _regiaoRepository.SelecionarEntidadeAsyncComInclude(r => r.Id == regiaoId, cancellationToken);
 
             if (regiao == null)
             {
@@ -159,6 +161,20 @@ namespace Fretefy.Test.Domain.Services
                 AdicionarRangeMensagens(regiao.Mensagens);
                 return;
             }
+
+            await _regiaoRepository.SalvarAsync(cancellationToken);
+        }
+
+        public async Task ExcluirEntidade(Regiao entidade, CancellationToken cancellationToken = default)
+        {
+            _regiaoRepository.ExcluirEntidade(entidade);
+
+            await _regiaoRepository.SalvarAsync(cancellationToken);
+        }
+
+        public async Task ExcluirEntidade(Regiao[] entidade, CancellationToken cancellationToken = default)
+        {
+            _regiaoRepository.ExcluirEntidade(entidade);
 
             await _regiaoRepository.SalvarAsync(cancellationToken);
         }

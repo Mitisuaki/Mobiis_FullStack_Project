@@ -12,7 +12,7 @@ namespace Fretefy.Test.Domain.Interfaces
     public interface ICidadeService : IBaseService<Cidade>
     {
         Task<Cidade> SelecionarEntidadeAsyncComInclude(Expression<Func<Cidade, bool>> expression, CancellationToken cancellationToken = default);
-        Task<PagedResult<Cidade>> SelecionarPaginadoAsync(string nome, int page, int pageSize, CancellationToken cancellationToken);
+        Task<PagedResult<Cidade>> SelecionarPaginadoAsync(string nome, int page, int pageSize, Guid[] estadosIgnorados = null, CancellationToken cancellationToken = default);
         Task<List<Cidade>> SelecionarTodosAsyncComInclude(CancellationToken cancellationToken = default);
     }
 }

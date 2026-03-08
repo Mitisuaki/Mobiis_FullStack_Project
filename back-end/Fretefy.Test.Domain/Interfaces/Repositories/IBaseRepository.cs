@@ -17,10 +17,12 @@ namespace Fretefy.Test.Domain.Interfaces.Repositories
         Task<TEntity> SelecionarEntidadeAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
         Task<List<TEntity>> SelecionarListaAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default);
         Task<List<TEntity>> SelecionarTodos(CancellationToken cancellationToken = default);
-        Task<DTOs.PagedResult<TEntity>> SelecionarPaginadoAsync(Expression<Func<TEntity, bool>> expression, 
+        Task<DTOs.PagedResult<TEntity>> SelecionarPaginadoAsync(Expression<Func<TEntity, bool>> filtro, 
                                                                 int page, int pageSize, 
                                                                 Expression<Func<TEntity, object>> orderBy, 
                                                                 CancellationToken cancellationToken = default, 
                                                                 params string[] includes);
+        void ExcluirEntidade(TEntity entidade);
+        void ExcluirEntidade(TEntity[] entidade);
     }
 }

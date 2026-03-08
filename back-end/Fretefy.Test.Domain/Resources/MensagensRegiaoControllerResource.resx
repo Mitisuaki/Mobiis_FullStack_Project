@@ -129,6 +129,9 @@
   <data name="RegiaoCriadaComSucesso" xml:space="preserve">
     <value>Região {0} cadastrada com sucesso.</value>
   </data>
+  <data name="RegiaoExcluidaComSucesso" xml:space="preserve">
+    <value>Região excluída com sucesso.</value>
+  </data>
   <data name="RegiaoIdInvalido" xml:space="preserve">
     <value>Parametro regiaoId inválido.</value>
   </data>

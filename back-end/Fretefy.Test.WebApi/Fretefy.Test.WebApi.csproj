@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Fretefy.Test.Infra\Fretefy.Test.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\BD\" />
-  </ItemGroup>
-
 </Project>

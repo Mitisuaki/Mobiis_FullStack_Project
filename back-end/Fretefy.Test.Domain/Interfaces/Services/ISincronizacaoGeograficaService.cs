@@ -5,6 +5,6 @@ namespace Fretefy.Test.Domain.Interfaces.Services
 {
     public interface ISincronizacaoGeograficaService
     {
-        Task SincronizarCidadesEUFIBGEAsync(CancellationToken cancellationToken);
+        Task SincronizarCidadesEUFIBGEAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -121,6 +121,6 @@
     <value>O nome da região é obrigatório.</value>
   </data>
   <data name="RegiaoSemCidadeUF" xml:space="preserve">
-    <value>A região deve ter pelo menos uma cidade ou uma UF vinculada.</value>
+    <value>É obrigatório informar ao menos uma cidade ou um estado para compor a região.</value>
   </data>
 </root>

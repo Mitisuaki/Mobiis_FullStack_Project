@@ -4,6 +4,7 @@ using Fretefy.Test.Domain.Interfaces;
 using Fretefy.Test.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,14 +31,12 @@ namespace Fretefy.Test.Domain.Services
             return await _cidadeRepository.SelecionarTodosAsyncComInclude(cancellationToken);
         }
 
-        public async Task<PagedResult<Cidade>> SelecionarPaginadoAsync(string nome, int page, int pageSize, CancellationToken cancellationToken)
+        public async Task<PagedResult<Cidade>> SelecionarPaginadoAsync(string nome, int page, int pageSize, Guid[] estadosIgnorados = null, CancellationToken cancellationToken = default)
         {
-            Expression<Func<Cidade, bool>> filtro = c => true;
+            bool temEstadosIgnorados = estadosIgnorados != null && estadosIgnorados.Length > 0;
 
-            if (!string.IsNullOrWhiteSpace(nome))
-            {
-                filtro = c => c.Nome.ToLower().Contains(nome.ToLower());
-            }
+            Expression<Func<Cidade, bool>> filtro = c => (string.IsNullOrWhiteSpace(nome) || c.Nome.ToLower().Contains(nome.ToLower())) 
+                                                      && (!temEstadosIgnorados || !estadosIgnorados.Contains(c.EstadoId));
 
             return await _cidadeRepository.SelecionarPaginadoAsync(filtro, page, pageSize, c => c.Nome, cancellationToken, NomeEntidadesParaIncludePaginacao.Estado);
         }

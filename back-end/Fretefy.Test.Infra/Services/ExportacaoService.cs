@@ -25,7 +25,7 @@ namespace Fretefy.Test.Infra.Services
             _regiaoRepository = regiaoRepository;
         }
 
-        public async Task<(Stream, string, string)> ExportarRegioesAsync(TipoExportacaoEnum formato, bool? ativo, CancellationToken cancellationToken)
+        public async Task<(Stream, string, string)> ExportarRegioesAsync(TipoExportacaoEnum formato, bool? ativo, CancellationToken cancellationToken = default)
         {
             List<Regiao> regioes = await _regiaoRepository.SelecionarTodosAsyncComInclude(cancellationToken);
 
