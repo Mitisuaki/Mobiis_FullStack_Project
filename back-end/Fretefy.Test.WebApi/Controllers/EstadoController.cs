@@ -1,5 +1,7 @@
 ﻿using Fretefy.Test.Application.Interfaces;
+using Fretefy.Test.Application.Models.Estado;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +21,7 @@ namespace Fretefy.Test.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string busca, CancellationToken cancellationToken)
         {
-            var estados = await _estadoAppService.SelecionarListaAsync(busca, cancellationToken);
+            List<EstadoDTO> estados = await _estadoAppService.SelecionarListaAsync(busca, cancellationToken);
             return Ok(estados);
         }
     }

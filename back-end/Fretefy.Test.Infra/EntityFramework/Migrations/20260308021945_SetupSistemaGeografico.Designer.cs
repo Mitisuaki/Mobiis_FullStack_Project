@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Fretefy.Test.Infra.Migrations
+namespace Fretefy.Test.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20260307053040_SetupSistemaGeografico")]
+    [Migration("20260308021945_SetupSistemaGeografico")]
     partial class SetupSistemaGeografico
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,7 +45,7 @@ namespace Fretefy.Test.Infra.Migrations
 
                     b.HasIndex("EstadoId1");
 
-                    b.HasIndex("Nome")
+                    b.HasIndex("Nome", "EstadoId")
                         .IsUnique();
 
                     b.ToTable("CIDADE");
@@ -117,7 +117,6 @@ namespace Fretefy.Test.Infra.Migrations
                         .HasColumnName("CIDADE_ID");
 
                     b.Property<Guid?>("EstadoId")
-                        .HasMaxLength(2)
                         .HasColumnType("TEXT")
                         .HasColumnName("ESTADO_ID");
 

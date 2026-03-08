@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Fretefy.Test.Infra.Migrations
+namespace Fretefy.Test.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
     partial class BaseDbContextModelSnapshot : ModelSnapshot
@@ -43,7 +43,7 @@ namespace Fretefy.Test.Infra.Migrations
 
                     b.HasIndex("EstadoId1");
 
-                    b.HasIndex("Nome")
+                    b.HasIndex("Nome", "EstadoId")
                         .IsUnique();
 
                     b.ToTable("CIDADE");
@@ -115,7 +115,6 @@ namespace Fretefy.Test.Infra.Migrations
                         .HasColumnName("CIDADE_ID");
 
                     b.Property<Guid?>("EstadoId")
-                        .HasMaxLength(2)
                         .HasColumnType("TEXT")
                         .HasColumnName("ESTADO_ID");
 

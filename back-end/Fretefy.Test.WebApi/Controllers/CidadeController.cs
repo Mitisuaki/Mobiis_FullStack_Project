@@ -3,6 +3,7 @@ using Fretefy.Test.Application.Models.Cidade;
 using Fretefy.Test.Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,11 +20,11 @@ namespace Fretefy.Test.WebApi.Controllers
             _cidadeAppService = cidadeAppService;
         }
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string nome, 
-                                             [FromQuery] Guid? estadoId,
-                                             [FromQuery] int page = 1,
-                                             [FromQuery] int pageSize = 50,
-                                             CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetPaginado([FromQuery] string nome, 
+                                                     [FromQuery] Guid? estadoId,
+                                                     [FromQuery] int page = 1,
+                                                     [FromQuery] int pageSize = 50,
+                                                     CancellationToken cancellationToken = default)
         {
             if (estadoId.HasValue)
             {
@@ -33,6 +34,13 @@ namespace Fretefy.Test.WebApi.Controllers
 
             PagedResult<CidadeDTO> cidadesPaginadas = await _cidadeAppService.ObterTodasPaginadoAsync(nome, page, pageSize, cancellationToken);
             return Ok(cidadesPaginadas);
+        }
+
+        [HttpGet("todas")]
+        public async Task<IActionResult> SelecionarTodasCidades(CancellationToken cancellationToken)
+        {
+            List<CidadeDTO> cidades = await _cidadeAppService.SelecionarTodas(cancellationToken);
+            return Ok(cidades);
         }
     }
 }

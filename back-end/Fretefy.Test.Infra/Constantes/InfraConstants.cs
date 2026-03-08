@@ -9,7 +9,7 @@
 
         public static class Swagger
         {
-            public const string Version = "V1";
+            public const string Version = "v1";
             public const string Title = "Mobiis FullStack Project";
             public const string URL = "/swagger/v1/swagger.json";
             public const string Nome = Title + " " + Version;
@@ -17,6 +17,7 @@
 
         public static class APIsExternas
         {
+            public const string IBGEEstados = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
             public const string IBGEMunicipios = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios";
         }
     }

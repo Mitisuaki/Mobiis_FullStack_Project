@@ -7,6 +7,7 @@ namespace Fretefy.Test.Domain.Interfaces.Gateways
 {
     public interface IIBGEGateway
     {
-        Task<List<MunicipioIBGEDTO>> ObterCidadesComUFAsync(CancellationToken cancellationToken);
+        Task<List<EstadoIBGEDTO>> ObterEstadosAsync(CancellationToken cancellationToken);
+        Task<List<MunicipioIBGEDTO>> ObterCidadesAsync(CancellationToken cancellationToken);
     }
 }

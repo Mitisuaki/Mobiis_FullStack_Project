@@ -37,6 +37,15 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
             return await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
+        public virtual async Task<bool> ExisteEntidadeAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.AnyAsync(expression, cancellationToken);
+        }
+        public virtual async Task<bool> ExisteRegistrosAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.AnyAsync(cancellationToken);
+        }
+
         public virtual async Task<TEntity> SelecionarEntidadeAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default)
         {
             return await _dbSet.FirstOrDefaultAsync(expression, cancellationToken);

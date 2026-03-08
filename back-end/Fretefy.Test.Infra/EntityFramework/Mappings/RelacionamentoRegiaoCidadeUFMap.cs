@@ -14,7 +14,7 @@ namespace Fretefy.Test.Infra.EntityFramework.Mappings
             builder.Property(x => x.Id).HasColumnName("ID").IsRequired();
             builder.Property(x => x.RegiaoId).HasColumnName("REGIAO_ID").IsRequired();
             builder.Property(x => x.CidadeId).HasColumnName("CIDADE_ID").IsRequired(false);
-            builder.Property(x => x.EstadoId).HasColumnName("ESTADO_ID").HasMaxLength(2).IsRequired(false);
+            builder.Property(x => x.EstadoId).HasColumnName("ESTADO_ID").IsRequired(false);
 
             builder.HasOne(x => x.Regiao).WithMany().HasForeignKey(x => x.RegiaoId);
             builder.HasOne(x => x.Cidade).WithMany().HasForeignKey(x => x.CidadeId);

@@ -61,11 +61,29 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A cidade {0} foi informada mais de uma vez..
+        /// </summary>
+        public static string RegiaoServiceCidadeDuplicada {
+            get {
+                return ResourceManager.GetString("RegiaoServiceCidadeDuplicada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A cidade com ID {0} não existe..
         /// </summary>
         public static string RegiaoServiceCidadeNaoEncontrada {
             get {
                 return ResourceManager.GetString("RegiaoServiceCidadeNaoEncontrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O estado {0} foi informado mais de uma vez..
+        /// </summary>
+        public static string RegiaoServiceEstadoDuplicado {
+            get {
+                return ResourceManager.GetString("RegiaoServiceEstadoDuplicado", resourceCulture);
             }
         }
         

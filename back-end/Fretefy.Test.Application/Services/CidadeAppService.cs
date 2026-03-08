@@ -55,6 +55,19 @@ namespace Fretefy.Test.Application.Services
                     Estado = c.Estado?.Sigla
                 }).ToList()
             };
+        }      
+        
+        public async Task<List<CidadeDTO>> SelecionarTodas(CancellationToken cancellationToken)
+        {
+            List<Cidade> cidades = await _cidadeService.SelecionarTodos(cancellationToken);
+
+            return cidades.Select(c => new CidadeDTO
+            {
+                Id = c.Id,
+                Nome = c.Nome,
+                EstadoId = c.EstadoId,
+                Estado = c.Estado?.Sigla
+            }).ToList();
         }        
     }
 }

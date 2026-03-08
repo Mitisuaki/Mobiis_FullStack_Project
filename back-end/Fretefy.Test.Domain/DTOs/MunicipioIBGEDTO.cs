@@ -2,8 +2,7 @@
 {
     public class MunicipioIBGEDTO
     {
-        public string CidadeNome { get; set; }
-        public string EstadoNome { get; set; }
-        public string EstadoSigla { get; set; }
+        public long Id { get; set; }
+        public string Nome { get; set; }
     }
 }

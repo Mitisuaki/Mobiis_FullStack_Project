@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="RegiaoServiceCidadeDuplicada" xml:space="preserve">
+    <value>A cidade {0} foi informada mais de uma vez.</value>
+  </data>
   <data name="RegiaoServiceCidadeNaoEncontrada" xml:space="preserve">
     <value>A cidade com ID {0} não existe.</value>
+  </data>
+  <data name="RegiaoServiceEstadoDuplicado" xml:space="preserve">
+    <value>O estado {0} foi informado mais de uma vez.</value>
   </data>
   <data name="RegiaoServiceEstadoNaoEncontado" xml:space="preserve">
     <value>O estado com ID {0} não existe.</value>

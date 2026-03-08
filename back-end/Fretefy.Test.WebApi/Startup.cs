@@ -25,12 +25,11 @@ namespace Fretefy.Test.WebApi
             services.InjetarGateways();
             services.InjetarServicos();
             services.InjetarBackgroundServices();
+
             services.AddCors();
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc(Swagger.Version, new Microsoft.OpenApi.Models.OpenApiInfo { Title = Swagger.Title, Version = Swagger.Version });
-            });
+
+            services.InjetarSwagger();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

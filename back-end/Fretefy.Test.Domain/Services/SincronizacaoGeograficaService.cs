@@ -17,26 +17,27 @@ namespace Fretefy.Test.Domain.Services
     public class SincronizacaoGeograficaService : Notification, ISincronizacaoGeograficaService
     {
         private readonly ICidadeService _cidadeService;
-        private readonly IIBGEGateway _ibgeGateway;
         private readonly IEstadoService _estadoService;
+        private readonly IIBGEGateway _ibgeGateway;
         private readonly ILogger<SincronizacaoGeograficaService> _logger;
 
-        public SincronizacaoGeograficaService(ICidadeService cidadeService,
-                                          IIBGEGateway ibgeGateway,
-                                          IEstadoService estadoService,
-                                          ILogger<SincronizacaoGeograficaService> logger)
+        public SincronizacaoGeograficaService(IIBGEGateway ibgeGateway,
+                                              IEstadoService estadoService,
+                                              ICidadeService cidadeService,
+                                              ILogger<SincronizacaoGeograficaService> logger)
         {
             _cidadeService = cidadeService;
-            _ibgeGateway = ibgeGateway;
             _estadoService = estadoService;
+            _ibgeGateway = ibgeGateway;
             _logger = logger;
         }
 
         public async Task SincronizarCidadesEUFIBGEAsync(CancellationToken cancellationToken)
         {
-            List<Cidade> cidadesExistentes = await _cidadeService.SelecionarTodos(cancellationToken);
+            bool cidadesAny = await _cidadeService.ExisteRegistrosAsync(cancellationToken);
+            bool estadosAny = await _estadoService.ExisteRegistrosAsync(cancellationToken);
 
-            if (cidadesExistentes.Any())
+            if (cidadesAny && estadosAny)
             {
                 return;
             }
@@ -44,41 +45,62 @@ namespace Fretefy.Test.Domain.Services
             try
             {
                 _logger.LogInformation(SincronizacaoGeograficaServiceLogResource.InicializacaoIBGE);
-                List<MunicipioIBGEDTO> cidadesIBGE = await _ibgeGateway.ObterCidadesComUFAsync(cancellationToken);
-                List<Estado> estados = await _estadoService.SelecionarTodos(cancellationToken);
 
-                foreach (MunicipioIBGEDTO cidadeIBGE in cidadesIBGE)
+                List<EstadoIBGEDTO> estadosIBGE = await _ibgeGateway.ObterEstadosAsync(cancellationToken);
+
+                if (!estadosAny)
                 {
-                    Estado estado = estados.Find(x => x.Sigla == cidadeIBGE.EstadoSigla);
-
-                    if (estado == null)
+                    foreach (EstadoIBGEDTO estadoIBGE in estadosIBGE)
                     {
-                        estado = new Estado(cidadeIBGE.EstadoNome, cidadeIBGE.EstadoSigla);
 
-                        if (estado.Invalido)
+                        Estado novoEstado = new Estado(estadoIBGE.Nome, estadoIBGE.Sigla);
+
+                        if (novoEstado.Invalido)
                         {
-                            AdicionarRangeMensagens(estado.Mensagens);
+                            AdicionarRangeMensagens(novoEstado.Mensagens);
                             continue;
                         }
 
-                        await _estadoService.AdicionarAsync(estado, cancellationToken);                        
+                        await _estadoService.AdicionarAsync(novoEstado, cancellationToken);
                     }
 
-                    Cidade cidade = new Cidade(cidadeIBGE.CidadeNome, estado.Id);
-                    if (cidade.Invalido)
+                     await _estadoService.SalvarAsync();
+                }
+
+                List<MunicipioIBGEDTO> cidadesIBGE = await _ibgeGateway.ObterCidadesAsync(cancellationToken);
+                List<Estado> estadosBD = await _estadoService.SelecionarTodos(cancellationToken);
+
+                Dictionary<int, Guid> dicionarioEstados = estadosIBGE.Join(estadosBD,
+                                                                           ibge => ibge.Sigla,
+                                                                           bd => bd.Sigla,
+                                                                           (ibge, bd) => new { IdIBGE = ibge.Id, IdBD = bd.Id })
+                                                                     .ToDictionary(k => k.IdIBGE, v => v.IdBD);
+
+                foreach (MunicipioIBGEDTO cidadeIBGE in cidadesIBGE)
+                {
+                    int idEstadoIbge = int.Parse(cidadeIBGE.Id.ToString()[..2]);
+
+                    if (!dicionarioEstados.TryGetValue(idEstadoIbge, out Guid estadoId))
                     {
-                        AdicionarRangeMensagens(cidade.Mensagens);
                         continue;
                     }
 
-                    await _cidadeService.AdicionarAsync(cidade, cancellationToken);
-                    _logger.LogInformation(SincronizacaoGeograficaServiceLogResource.SucessoIBGE);
+                    Cidade novaCidade = new Cidade(cidadeIBGE.Nome, estadoId);
+
+                    if (novaCidade.Invalido)
+                    {
+                        AdicionarRangeMensagens(novaCidade.Mensagens);
+                        continue;
+                    }
+
+                    await _cidadeService.AdicionarAsync(novaCidade, cancellationToken);
                 }
 
+                await _cidadeService.SalvarAsync();
 
                 if (!Invalido)
                 {                    
-                    await _cidadeService.SalvarAsync();
+                    _logger.LogInformation(SincronizacaoGeograficaServiceLogResource.SucessoIBGE);
                 }
                 else
                 {

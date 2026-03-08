@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Fretefy.Test.Infra.Migrations
+namespace Fretefy.Test.Infra.EntityFramework.Migrations
 {
     public partial class SetupSistemaGeografico : Migration
     {
@@ -66,7 +66,7 @@ namespace Fretefy.Test.Infra.Migrations
                     ID = table.Column<Guid>(type: "TEXT", nullable: false),
                     REGIAO_ID = table.Column<Guid>(type: "TEXT", nullable: false),
                     CIDADE_ID = table.Column<Guid>(type: "TEXT", nullable: true),
-                    ESTADO_ID = table.Column<Guid>(type: "TEXT", maxLength: 2, nullable: true),
+                    ESTADO_ID = table.Column<Guid>(type: "TEXT", nullable: true),
                     RegiaoId1 = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -109,9 +109,9 @@ namespace Fretefy.Test.Infra.Migrations
                 column: "EstadoId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CIDADE_NOME",
+                name: "IX_CIDADE_NOME_ESTADO_ID",
                 table: "CIDADE",
-                column: "NOME",
+                columns: new[] { "NOME", "ESTADO_ID" },
                 unique: true);
 
             migrationBuilder.CreateIndex(

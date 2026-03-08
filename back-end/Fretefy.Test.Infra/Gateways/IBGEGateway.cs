@@ -21,7 +21,25 @@ namespace Fretefy.Test.Infra.Gateways
             _httpClient = httpClient;
         }
 
-        public async Task<List<MunicipioIBGEDTO>> ObterCidadesComUFAsync(CancellationToken cancellationToken)
+        public async Task<List<EstadoIBGEDTO>> ObterEstadosAsync(CancellationToken cancellationToken)
+        {
+            HttpResponseMessage resposta = await _httpClient.GetAsync(IBGEEstados, cancellationToken);
+            resposta.EnsureSuccessStatusCode();
+
+            using Stream stream = await resposta.Content.ReadAsStreamAsync();
+            JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+            List<IBGEEstadoResponse> estadosIBGE = await JsonSerializer.DeserializeAsync<List<IBGEEstadoResponse>>(stream, options, cancellationToken);
+
+            return estadosIBGE?.Select(e => new EstadoIBGEDTO
+            {
+                Id = e.Id,
+                Nome = e.Nome,
+                Sigla = e.Sigla
+            }).ToList() ?? new List<EstadoIBGEDTO>();
+        }
+
+        public async Task<List<MunicipioIBGEDTO>> ObterCidadesAsync(CancellationToken cancellationToken)
         {
             HttpResponseMessage resposta = await _httpClient.GetAsync(IBGEMunicipios, cancellationToken);
             resposta.EnsureSuccessStatusCode();
@@ -29,13 +47,12 @@ namespace Fretefy.Test.Infra.Gateways
             using Stream stream = await resposta.Content.ReadAsStreamAsync();
             JsonSerializerOptions options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-            List<IBGEMunicipioDTO> municipiosIBGE = await JsonSerializer.DeserializeAsync<List<IBGEMunicipioDTO>>(stream, options, cancellationToken);
+            List<IBGEMunicipioResponse> municipiosIBGE = await JsonSerializer.DeserializeAsync<List<IBGEMunicipioResponse>>(stream, options, cancellationToken);
 
             return municipiosIBGE?.Select(m => new MunicipioIBGEDTO
             {
-                CidadeNome = m.Nome,
-                EstadoNome = m.Microrregiao.Mesorregiao.UF.Nome,
-                EstadoSigla = m.Microrregiao.Mesorregiao.UF.Sigla
+                Id = m.Id,
+                Nome = m.Nome,
             }).ToList() ?? new List<MunicipioIBGEDTO>();
         }
     }

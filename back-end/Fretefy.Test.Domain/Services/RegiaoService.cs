@@ -77,6 +77,20 @@ namespace Fretefy.Test.Domain.Services
                 AdicionarMensagem(string.Format(MensagensRegiaoServiceResource.RegiaoServiceEstadoNaoEncontado, id));
             }
 
+            List<Guid> cidadesDuplicadas = cidadesIds.GroupBy(id => id).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+            foreach (Guid id in cidadesDuplicadas)
+            {
+                Cidade cidade = cidadesExistentes.FirstOrDefault(c => c.Id == id);
+                AdicionarMensagem(string.Format(MensagensRegiaoServiceResource.RegiaoServiceCidadeDuplicada, cidade.Nome));
+            }
+
+            List<Guid> estadosDuplicados = estadosIds.GroupBy(id => id).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+            foreach (Guid id in estadosDuplicados)
+            {
+                Estado estado = estadosExistentes.FirstOrDefault(e => e.Id == id);
+                AdicionarMensagem(string.Format(MensagensRegiaoServiceResource.RegiaoServiceEstadoDuplicado, estado.Nome));
+            }
+
             return (cidadesIds, estadosIds);
         }
         public async Task AtivarAsync(Guid id, CancellationToken cancellationToken)

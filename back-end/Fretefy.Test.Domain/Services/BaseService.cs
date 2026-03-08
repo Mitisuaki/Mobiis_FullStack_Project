@@ -35,6 +35,15 @@ namespace Fretefy.Test.Domain.Services
             return await _repository.SalvarAsync(cancellationToken);
         }
 
+        public virtual async Task<bool> ExisteEntidadeAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default)
+        {
+            return await _repository.ExisteEntidadeAsync(expression, cancellationToken);
+        }
+        public virtual async Task<bool> ExisteRegistrosAsync(CancellationToken cancellationToken = default)
+        {
+            return await _repository.ExisteRegistrosAsync(cancellationToken);
+        }
+
         public virtual async Task<TEntity> SelecionarEntidadeAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default)
         {
             return await _repository.SelecionarEntidadeAsync(expression, cancellationToken);

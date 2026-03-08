@@ -17,7 +17,7 @@ namespace Fretefy.Test.Infra.EntityFramework.Mappings
 
             builder.HasOne(x => x.Estado).WithMany().HasForeignKey(x => x.EstadoId);
 
-            builder.HasIndex(x => x.Nome).IsUnique();
+            builder.HasIndex(x => new {x.Nome, x.EstadoId}).IsUnique();
         }
     }
 }
