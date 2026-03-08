@@ -2,6 +2,7 @@
 using Fretefy.Test.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,12 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
         {
             return await _dbSet.Include(r => r.Estado)
                                .FirstOrDefaultAsync(expression, cancellationToken);
+        }
+
+        public async Task<List<Cidade>> SelecionarTodosAsyncComInclude(CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.Include(r => r.Estado)
+                               .ToListAsync(cancellationToken);
         }
     }
 }

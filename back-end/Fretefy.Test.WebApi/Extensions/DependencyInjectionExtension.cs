@@ -8,6 +8,7 @@ using Fretefy.Test.Domain.Services;
 using Fretefy.Test.Infra.EntityFramework;
 using Fretefy.Test.Infra.EntityFramework.Repositories;
 using Fretefy.Test.Infra.Gateways;
+using Fretefy.Test.Infra.Services;
 using Fretefy.Test.WebApi.Filters;
 using Fretefy.Test.WebApi.Services;
 using Microsoft.EntityFrameworkCore;
@@ -52,6 +53,7 @@ namespace Fretefy.Test.WebApi.Extensions
             services.AddScoped<IRegiaoService, RegiaoService>();
             services.AddScoped<IRegiaoAppService, RegiaoAppService>();
             services.AddScoped<ISincronizacaoGeograficaService, SincronizacaoGeograficaService>();
+            services.AddScoped<IExportacaoService, ExportacaoService>();
         }
 
         public static void InjetarBackgroundServices(this IServiceCollection services)

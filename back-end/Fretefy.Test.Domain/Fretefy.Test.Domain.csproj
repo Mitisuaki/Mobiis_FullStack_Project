@@ -9,6 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\ExportacaoServiceResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExportacaoServiceResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\MensagensRegiaoControllerResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -47,6 +52,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\ExportacaoServiceResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExportacaoServiceResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\MensagensRegiaoControllerResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MensagensRegiaoControllerResource.Designer.cs</LastGenOutput>

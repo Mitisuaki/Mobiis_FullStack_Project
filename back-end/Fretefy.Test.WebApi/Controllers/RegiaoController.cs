@@ -1,9 +1,12 @@
 ﻿using Fretefy.Test.Application.Interfaces;
 using Fretefy.Test.Application.Models.Regiao;
+using Fretefy.Test.Domain.Enums;
+using Fretefy.Test.Domain.Interfaces.Services;
 using Fretefy.Test.Domain.Resources;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,15 +17,23 @@ namespace Fretefy.Test.WebApi.Controllers
     public class RegiaoController : ControllerBase
     {
         private readonly IRegiaoAppService _regiaoAppService;
+        private readonly IExportacaoService _exportacaoService;
 
-        public RegiaoController(IRegiaoAppService regiaoAppService)
+        public RegiaoController(IRegiaoAppService regiaoAppService,
+                                IExportacaoService exportacaoService)
         {
             _regiaoAppService = regiaoAppService;
+            _exportacaoService = exportacaoService;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{regiaoId}")]
         public async Task<IActionResult> GetById(Guid regiaoId, CancellationToken cancellationToken)
         {
+            if (regiaoId == Guid.Empty)
+            {
+                return BadRequest(MensagensRegiaoControllerResource.RegiaoIdInvalido);
+            }
+
             RegiaoDetalheDTO regiao = await _regiaoAppService.ObterPorIdAsync(regiaoId, cancellationToken);
 
             if (regiao == null)
@@ -37,12 +48,18 @@ namespace Fretefy.Test.WebApi.Controllers
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             IEnumerable<RegiaoDTO> regioes = await _regiaoAppService.ObterTodasAsync(cancellationToken);
+
             return Ok(regioes);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] RegiaoInputModel regiao, CancellationToken cancellationToken)
         {
+            if (regiao == null)
+            {
+                return BadRequest(MensagensRegiaoControllerResource.RegiaoObrigatoria);
+            }
+
             await _regiaoAppService.SalvarAsync(regiao, cancellationToken);
 
             if (_regiaoAppService.Invalido)
@@ -56,6 +73,16 @@ namespace Fretefy.Test.WebApi.Controllers
         [HttpPut("{regiaoId}")]
         public async Task<IActionResult> Put(Guid regiaoId, [FromBody] RegiaoInputModel regiao, CancellationToken cancellationToken)
         {
+            if (regiaoId == Guid.Empty)
+            {
+                return BadRequest(MensagensRegiaoControllerResource.RegiaoIdInvalido);
+            }
+
+            if (regiao == null)
+            {
+                return BadRequest(MensagensRegiaoControllerResource.RegiaoObrigatoria);
+            }
+
             await _regiaoAppService.AtualizarAsync(regiaoId, regiao, cancellationToken);
 
             if (_regiaoAppService.Invalido)
@@ -66,30 +93,53 @@ namespace Fretefy.Test.WebApi.Controllers
             return Ok(new { mensagem = string.Format(MensagensRegiaoControllerResource.RegiaoAtualizadaComSucesso, regiao.Nome) });
         }
 
-        [HttpPut("{id}/ativar")]
+        [HttpPut("{regiaoId}/ativar")]
         public async Task<IActionResult> Ativar(Guid regiaoId, CancellationToken cancellationToken)
         {
+            if (regiaoId == Guid.Empty)
+            {
+                return BadRequest(MensagensRegiaoControllerResource.RegiaoIdInvalido);
+            }
+
             await _regiaoAppService.AtivarAsync(regiaoId, cancellationToken);
 
             if (_regiaoAppService.Invalido)
             {
-                return BadRequest(new { erros = _regiaoAppService.Mensagens });
+                return NotFound();
             }
 
             return Ok(new { mensagem = MensagensRegiaoControllerResource.RegiaoAtivadaComSucesso });
         }
 
-        [HttpPut("{id}/inativar")]
+        [HttpPut("{regiaoId}/inativar")]
         public async Task<IActionResult> Inativar(Guid regiaoId, CancellationToken cancellationToken)
         {
+            if (regiaoId == Guid.Empty)
+            {
+                return BadRequest(MensagensRegiaoControllerResource.RegiaoIdInvalido);
+            }
+
             await _regiaoAppService.InativarAsync(regiaoId, cancellationToken);
 
             if (_regiaoAppService.Invalido)
             {
-                return BadRequest(new { erros = _regiaoAppService.Mensagens });
+                return NotFound();
             }
 
             return Ok(new { mensagem = MensagensRegiaoControllerResource.RegiaoInativadaComSucesso });
+        }
+
+        [HttpGet("exportar")]
+        public async Task<IActionResult> ExportarRegioes([FromQuery] TipoExportacaoEnum formato, [FromQuery] bool? ativo, CancellationToken cancellationToken)
+        {
+            if (!Enum.IsDefined(typeof(TipoExportacaoEnum), formato))
+            {
+                return BadRequest(MensagensRegiaoControllerResource.FormatoExportacaoInvalido);
+            }
+
+            (Stream stream, string contentType, string fileName) = await _exportacaoService.ExportarRegioesAsync(formato, ativo, cancellationToken);
+            
+            return File(stream, contentType, fileName);
         }
     }
 }

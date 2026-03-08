@@ -27,6 +27,8 @@ namespace Fretefy.Test.Infra.EntityFramework.Mappings
             builder.HasIndex(x => new { x.RegiaoId, x.EstadoId })
                    .IsUnique()
                    .HasFilter("\"ESTADO_ID\" IS NOT NULL");
+
+            builder.HasCheckConstraint("CK_REL_CIDADE_ESTADO", "\"CIDADE_ID\" IS NOT NULL OR \"ESTADO_ID\" IS NOT NULL");
         }
     }
 }

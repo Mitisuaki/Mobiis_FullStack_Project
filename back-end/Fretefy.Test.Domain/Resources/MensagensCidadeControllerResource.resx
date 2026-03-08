@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FormatoExportacaoInvalido" xml:space="preserve">
-    <value>Formato de exportação inválido.</value>
+  <data name="CidadeIdInvalido" xml:space="preserve">
+    <value>Parametro cidadeId inválido.</value>
   </data>
-  <data name="RegiaoAtivadaComSucesso" xml:space="preserve">
-    <value>Região ativada com sucesso.</value>
-  </data>
-  <data name="RegiaoAtualizadaComSucesso" xml:space="preserve">
-    <value>Região {0} atualizada com sucesso.</value>
-  </data>
-  <data name="RegiaoCriadaComSucesso" xml:space="preserve">
-    <value>Região {0} cadastrada com sucesso.</value>
-  </data>
-  <data name="RegiaoIdInvalido" xml:space="preserve">
-    <value>Parametro regiaoId inválido.</value>
-  </data>
-  <data name="RegiaoInativadaComSucesso" xml:space="preserve">
-    <value>Região inativada com sucesso.</value>
-  </data>
-  <data name="RegiaoObrigatoria" xml:space="preserve">
-    <value>Envio de dados da região é obrigatório.</value>
+  <data name="ConfigPaginacaoInvalido" xml:space="preserve">
+    <value>Ao menos um dos parametros de configuração da paginação é invalido.</value>
   </data>
 </root>

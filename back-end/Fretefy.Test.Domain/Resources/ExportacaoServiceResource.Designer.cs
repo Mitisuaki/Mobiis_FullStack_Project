@@ -22,14 +22,14 @@ namespace Fretefy.Test.Domain.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MensagensRegiaoControllerResource {
+    public class ExportacaoServiceResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MensagensRegiaoControllerResource() {
+        internal ExportacaoServiceResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Fretefy.Test.Domain.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fretefy.Test.Domain.Resources.MensagensRegiaoControllerResource", typeof(MensagensRegiaoControllerResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fretefy.Test.Domain.Resources.ExportacaoServiceResource", typeof(ExportacaoServiceResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,11 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Formato de exportação inválido..
+        ///   Looks up a localized string similar to Formato de exportação não suportado..
         /// </summary>
         public static string FormatoExportacaoInvalido {
             get {
                 return ResourceManager.GetString("FormatoExportacaoInvalido", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Região ativada com sucesso..
-        /// </summary>
-        public static string RegiaoAtivadaComSucesso {
-            get {
-                return ResourceManager.GetString("RegiaoAtivadaComSucesso", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Região {0} atualizada com sucesso..
-        /// </summary>
-        public static string RegiaoAtualizadaComSucesso {
-            get {
-                return ResourceManager.GetString("RegiaoAtualizadaComSucesso", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Região {0} cadastrada com sucesso..
-        /// </summary>
-        public static string RegiaoCriadaComSucesso {
-            get {
-                return ResourceManager.GetString("RegiaoCriadaComSucesso", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Parametro regiaoId inválido..
-        /// </summary>
-        public static string RegiaoIdInvalido {
-            get {
-                return ResourceManager.GetString("RegiaoIdInvalido", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Região inativada com sucesso..
-        /// </summary>
-        public static string RegiaoInativadaComSucesso {
-            get {
-                return ResourceManager.GetString("RegiaoInativadaComSucesso", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Envio de dados da região é obrigatório..
-        /// </summary>
-        public static string RegiaoObrigatoria {
-            get {
-                return ResourceManager.GetString("RegiaoObrigatoria", resourceCulture);
             }
         }
     }

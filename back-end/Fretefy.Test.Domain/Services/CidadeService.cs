@@ -3,9 +3,11 @@ using Fretefy.Test.Domain.Entities;
 using Fretefy.Test.Domain.Interfaces;
 using Fretefy.Test.Domain.Interfaces.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using static Fretefy.Test.Domain.Constantes.DominioConstants;
 
 namespace Fretefy.Test.Domain.Services
 {
@@ -23,16 +25,21 @@ namespace Fretefy.Test.Domain.Services
             return await _cidadeRepository.SelecionarEntidadeAsyncComInclude(expression, cancellationToken);
         }
 
+        public async Task<List<Cidade>> SelecionarTodosAsyncComInclude(CancellationToken cancellationToken = default)
+        {
+            return await _cidadeRepository.SelecionarTodosAsyncComInclude(cancellationToken);
+        }
+
         public async Task<PagedResult<Cidade>> SelecionarPaginadoAsync(string nome, int page, int pageSize, CancellationToken cancellationToken)
         {
             Expression<Func<Cidade, bool>> filtro = c => true;
 
             if (!string.IsNullOrWhiteSpace(nome))
             {
-                filtro = c => c.Nome.Contains(nome);
+                filtro = c => c.Nome.ToLower().Contains(nome.ToLower());
             }
 
-            return await _cidadeRepository.SelecionarPaginadoAsync(filtro, page, pageSize, c => c.Nome, cancellationToken, "Estado");
+            return await _cidadeRepository.SelecionarPaginadoAsync(filtro, page, pageSize, c => c.Nome, cancellationToken, NomeEntidadesParaIncludePaginacao.Estado);
         }
     }
 }

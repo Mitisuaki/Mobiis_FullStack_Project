@@ -59,7 +59,7 @@ namespace Fretefy.Test.Application.Services
         
         public async Task<List<CidadeDTO>> SelecionarTodas(CancellationToken cancellationToken)
         {
-            List<Cidade> cidades = await _cidadeService.SelecionarTodos(cancellationToken);
+            List<Cidade> cidades = await _cidadeService.SelecionarTodosAsyncComInclude(cancellationToken);
 
             return cidades.Select(c => new CidadeDTO
             {

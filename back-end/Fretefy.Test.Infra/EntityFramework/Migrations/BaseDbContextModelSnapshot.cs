@@ -142,6 +142,8 @@ namespace Fretefy.Test.Infra.EntityFramework.Migrations
                         .HasFilter("\"ESTADO_ID\" IS NOT NULL");
 
                     b.ToTable("REL_REGIAO_CIDADE");
+
+                    b.HasCheckConstraint("CK_REL_CIDADE_ESTADO", "\"CIDADE_ID\" IS NOT NULL OR \"ESTADO_ID\" IS NOT NULL");
                 });
 
             modelBuilder.Entity("Fretefy.Test.Domain.Entities.Cidade", b =>

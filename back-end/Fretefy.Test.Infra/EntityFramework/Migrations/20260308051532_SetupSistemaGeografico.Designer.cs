@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fretefy.Test.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20260308021945_SetupSistemaGeografico")]
+    [Migration("20260308051532_SetupSistemaGeografico")]
     partial class SetupSistemaGeografico
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,6 +144,8 @@ namespace Fretefy.Test.Infra.EntityFramework.Migrations
                         .HasFilter("\"ESTADO_ID\" IS NOT NULL");
 
                     b.ToTable("REL_REGIAO_CIDADE");
+
+                    b.HasCheckConstraint("CK_REL_CIDADE_ESTADO", "\"CIDADE_ID\" IS NOT NULL OR \"ESTADO_ID\" IS NOT NULL");
                 });
 
             modelBuilder.Entity("Fretefy.Test.Domain.Entities.Cidade", b =>

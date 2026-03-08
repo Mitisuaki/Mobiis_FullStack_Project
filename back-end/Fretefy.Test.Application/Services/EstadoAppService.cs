@@ -18,9 +18,9 @@ namespace Fretefy.Test.Application.Services
             _estadoService = estadoService;
         }
 
-        public async Task<List<EstadoDTO>> SelecionarListaAsync(string busca, CancellationToken cancellationToken)
+        public async Task<List<EstadoDTO>> SelecionarListaAsync(string uf, CancellationToken cancellationToken)
         {
-            List<Estado> estados = await _estadoService.SelecionarListaAsync(busca, cancellationToken);
+            List<Estado> estados = await _estadoService.SelecionarListaAsync(uf, cancellationToken);
 
             return estados.Select(e => new EstadoDTO
             {

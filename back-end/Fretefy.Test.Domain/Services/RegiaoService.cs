@@ -61,6 +61,13 @@ namespace Fretefy.Test.Domain.Services
             cidadesIds ??= new List<Guid>();
             estadosIds ??= new List<Guid>();
 
+            if (!cidadesIds.Any() && !estadosIds.Any())
+            {
+                AdicionarMensagem(MensagensRegiaoServiceResource.RegiaoSemCidadeUF);
+
+                return (cidadesIds, estadosIds);
+            }
+
             List<Cidade> cidadesExistentes = await _cidadeRepository.SelecionarListaAsync(c => cidadesIds.Contains(c.Id), cancellationToken);
             List<Guid> cidadesInexistentes = cidadesIds.Except(cidadesExistentes.Select(c => c.Id)).ToList();
 
@@ -88,14 +95,21 @@ namespace Fretefy.Test.Domain.Services
             foreach (Guid id in estadosDuplicados)
             {
                 Estado estado = estadosExistentes.FirstOrDefault(e => e.Id == id);
-                AdicionarMensagem(string.Format(MensagensRegiaoServiceResource.RegiaoServiceEstadoDuplicado, estado.Nome));
+                AdicionarMensagem(string.Format(MensagensRegiaoServiceResource.RegiaoServiceEstadoDuplicado, estado.Sigla));
+            }
+
+            List<Cidade> cidadesComEstadosInclusos = cidadesExistentes.Where(c => estadosExistentes.Any(e => e.Id == c.EstadoId)).ToList();
+            foreach (Cidade cidade in cidadesComEstadosInclusos)
+            {
+                Estado estado = estadosExistentes.FirstOrDefault(e => e.Id == cidade.EstadoId);
+                AdicionarMensagem(string.Format(MensagensRegiaoServiceResource.RegiaoServiceCidadeComEstadoIncluso, cidade.Nome, estado.Sigla));
             }
 
             return (cidadesIds, estadosIds);
         }
         public async Task AtivarAsync(Guid id, CancellationToken cancellationToken)
         {
-            var regiao = await _regiaoRepository.SelecionarEntidadeAsync(r => r.Id == id, cancellationToken);
+            Regiao regiao = await _regiaoRepository.SelecionarEntidadeAsync(r => r.Id == id, cancellationToken);
 
             if (regiao == null)
             {

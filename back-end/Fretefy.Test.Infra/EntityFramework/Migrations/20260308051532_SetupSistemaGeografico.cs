@@ -72,6 +72,7 @@ namespace Fretefy.Test.Infra.EntityFramework.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_REL_REGIAO_CIDADE", x => x.ID);
+                    table.CheckConstraint("CK_REL_CIDADE_ESTADO", "\"CIDADE_ID\" IS NOT NULL OR \"ESTADO_ID\" IS NOT NULL");
                     table.ForeignKey(
                         name: "FK_REL_REGIAO_CIDADE_CIDADE_CIDADE_ID",
                         column: x => x.CIDADE_ID,

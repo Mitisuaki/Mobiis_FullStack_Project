@@ -22,14 +22,14 @@ namespace Fretefy.Test.Domain.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MensagensRegiaoServiceResource {
+    public class MensagensCidadeControllerResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MensagensRegiaoServiceResource() {
+        internal MensagensCidadeControllerResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Fretefy.Test.Domain.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fretefy.Test.Domain.Resources.MensagensRegiaoServiceResource", typeof(MensagensRegiaoServiceResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fretefy.Test.Domain.Resources.MensagensCidadeControllerResource", typeof(MensagensCidadeControllerResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,20 @@ namespace Fretefy.Test.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to É obrigatório informar ao menos uma cidade ou um estado para compor a região..
+        ///   Looks up a localized string similar to Parametro cidadeId inválido..
         /// </summary>
-        public static string RegiaoSemCidadeUF {
+        public static string CidadeIdInvalido {
             get {
-                return ResourceManager.GetString("RegiaoSemCidadeUF", resourceCulture);
+                return ResourceManager.GetString("CidadeIdInvalido", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A cidade {0} esta inclusa na UF {1}..
+        ///   Looks up a localized string similar to Ao menos um dos parametros de configuração da paginação é invalido..
         /// </summary>
-        public static string RegiaoServiceCidadeComEstadoIncluso {
+        public static string ConfigPaginacaoInvalido {
             get {
-                return ResourceManager.GetString("RegiaoServiceCidadeComEstadoIncluso", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A cidade {0} foi informada mais de uma vez..
-        /// </summary>
-        public static string RegiaoServiceCidadeDuplicada {
-            get {
-                return ResourceManager.GetString("RegiaoServiceCidadeDuplicada", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A cidade com ID {0} não existe..
-        /// </summary>
-        public static string RegiaoServiceCidadeNaoEncontrada {
-            get {
-                return ResourceManager.GetString("RegiaoServiceCidadeNaoEncontrada", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to O estado {0} foi informado mais de uma vez..
-        /// </summary>
-        public static string RegiaoServiceEstadoDuplicado {
-            get {
-                return ResourceManager.GetString("RegiaoServiceEstadoDuplicado", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to O estado com ID {0} não existe..
-        /// </summary>
-        public static string RegiaoServiceEstadoNaoEncontado {
-            get {
-                return ResourceManager.GetString("RegiaoServiceEstadoNaoEncontado", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Região não encontrada..
-        /// </summary>
-        public static string RegiaoServiceRegiaoNaoEncontrada {
-            get {
-                return ResourceManager.GetString("RegiaoServiceRegiaoNaoEncontrada", resourceCulture);
+                return ResourceManager.GetString("ConfigPaginacaoInvalido", resourceCulture);
             }
         }
     }
