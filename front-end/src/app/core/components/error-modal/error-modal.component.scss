@@ -1,0 +1,77 @@
+.modal-overlay-custom {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modal-box {
+  background-color: #ffffff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 950px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-title-custom {
+  color: #1a3c5b;
+}
+
+.modal-body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.error-row {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  background-color: #fcfcfc;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #f1f3f5;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .error-icon {
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .error-text {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+}
+
+.btn-close-clean {
+  background: transparent;
+  border: none;
+  color: #6c757d;
+  font-size: 1.8rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    color: #343a40;
+  }
+}
+
+.btn-fechar-custom {
+  border-radius: 6px;
+}

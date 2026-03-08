@@ -1,0 +1,117 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 1rem;
+}
+
+.modal-container {
+  width: 100%;
+  max-width: 800px;
+  height: 80vh;
+  max-height: 850px;
+  background-color: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+}
+
+.scroll-area {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.5rem;
+}
+
+.list-container {
+  min-height: 420px;
+}
+
+.dropdown-overflow-fix ::ng-deep .ng-dropdown-panel {
+  z-index: 9999 !important;
+}
+
+::ng-deep .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.bg-custom-blue {
+  background-color: #2b3e50 !important;
+}
+
+.border-custom-blue {
+  border-color: #2b3e50 !important;
+}
+
+.btn-circular-close {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 0;
+  padding-bottom: 2px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+
+  span {
+    display: block;
+    line-height: 0;
+    margin-top: -3px;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+  }
+}
+
+.input-border-wrap {
+  position: relative;
+  border: 1px solid #1c3d5a;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  background-color: transparent;
+  min-height: 52px;
+
+  label {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background-color: #fff;
+    padding: 0 5px;
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-weight: bold;
+    margin-bottom: 0;
+    z-index: 10;
+  }
+}
+
+.localidade-error-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 0 12px 10px;
+}
+
+.text-danger.small.font-weight-bold {
+  line-height: 1.1;
+  display: block;
+}

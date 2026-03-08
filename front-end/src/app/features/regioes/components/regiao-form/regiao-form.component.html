@@ -1,0 +1,109 @@
+<div class="modal-overlay" (click)="cancelar()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+
+    <div class="d-flex justify-content-between align-items-center p-3 px-4 bg-custom-blue text-white rounded-top">
+      <h5 class="mb-0">{{ tituloPagina }}</h5>
+      <button type="button" class="btn-circular-close" aria-label="Fechar" (click)="cancelar()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="scroll-area p-4">
+      <form [formGroup]="form" (ngSubmit)="salvar()" class="d-flex flex-column h-100">
+
+        <div class="mb-4">
+          <div class="input-border-wrap m-0" [ngClass]="{'border-danger': isNomeInvalido()}">
+            <label for="nomeRegiao">{{ textos.LabelNome }}</label>
+            <input type="text" id="nomeRegiao" class="form-control border-0 shadow-none p-0 w-100 bg-transparent" formControlName="nome" placeholder=" " maxlength="100">
+          </div>
+
+          <div *ngIf="isNomeInvalido()" class="localidade-error-container">
+            <div class="text-danger small font-weight-bold">
+              {{ textos.ErroNome }}
+            </div>
+          </div>
+        </div>
+
+        <h5 class="font-weight-bold text-secondary mb-3">{{ textos.SubtituloLocais }}</h5>
+
+        <div formArrayName="localidades" class="list-container">
+          <div *ngFor="let local of localidadesPaginadas; let i = index" [formGroupName]="getIndexAbsoluto(i)" class="mb-3">
+            <div class="row align-items-stretch">
+              <div class="col-md-10 col-8 d-flex">
+                <div class="input-border-wrap w-100 m-0" [ngClass]="{'border-danger': isLocalidadeInvalida(getIndexAbsoluto(i))}">
+                  <label>{{ textoLabelLocalidade(getIndexAbsoluto(i)) }}</label>
+
+                  <app-seletor-localidade
+                    class="w-100 dropdown-overflow-fix"
+                    formControlName="item"
+                    [tipoBusca]="local.get('tipo')?.value"
+                    [estadosIgnorados]="obterEstadosIgnorados()"
+                    appendTo="body">
+                  </app-seletor-localidade>
+
+                </div>
+              </div>
+
+              <div class="col-md-2 col-4 d-flex">
+                <button type="button" class="btn btn-outline-danger w-100 h-100 font-weight-bold" (click)="removerLocalidade(getIndexAbsoluto(i))">
+                  {{ textos.BotaoRemover }}
+                </button>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="isLocalidadeInvalida(getIndexAbsoluto(i))">
+              <div class="col-md-10 col-8">
+                <div class="localidade-error-container">
+                  <div *ngFor="let erro of obterErrosLocalidade(getIndexAbsoluto(i))" class="text-danger small font-weight-bold">
+                    {{ erro }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <nav [class.invisible]="totalPaginas <= 1" class="mt-2 mb-3">
+          <ul class="pagination justify-content-center mb-0">
+            <li class="page-item" [class.disabled]="paginaAtual === 1">
+              <button type="button" class="page-link text-dark" (click)="mudarPagina(paginaAtual - 1)">Anterior</button>
+            </li>
+
+            <li class="page-item" *ngFor="let page of paginasVisiveis" [class.active]="paginaAtual === page">
+              <button type="button" class="page-link"
+                      [ngClass]="paginaAtual === page ? 'bg-custom-blue border-custom-blue text-white' : 'text-dark'"
+                      (click)="mudarPagina(page)">
+                {{ page }}
+              </button>
+            </li>
+
+            <li class="page-item" [class.disabled]="paginaAtual === totalPaginas">
+              <button type="button" class="page-link text-dark" (click)="mudarPagina(paginaAtual + 1)">Próximo</button>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="d-flex flex-wrap mb-4 mt-2">
+          <button type="button" class="btn btn-light border font-weight-bold text-secondary mr-3 mb-2" (click)="adicionarLocalidade(TipoLocalidadeEnum.Cidade)">
+            {{ textos.BotaoAddCidade }}
+          </button>
+          <button type="button" class="btn btn-light border font-weight-bold text-secondary mb-2" (click)="adicionarLocalidade(TipoLocalidadeEnum.Estado)">
+            {{ textos.BotaoAddEstado }}
+          </button>
+        </div>
+
+        <hr class="mt-auto">
+
+        <div class="d-flex justify-content-center justify-content-md-end mt-4">
+          <button type="button" class="me-3 btn btn-light border px-4 font-weight-bold text-secondary mr-3" (click)="cancelar()">
+            {{ textos.BotaoCancelar }}
+          </button>
+          <button type="submit" class="btn btn-primary px-5 font-weight-bold ">
+            {{ textos.BotaoSalvar }}
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
