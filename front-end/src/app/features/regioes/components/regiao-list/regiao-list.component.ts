@@ -7,6 +7,8 @@ import { IRegiao } from '../../models/regiao.interface';
 import { RegiaoService } from '../../services/regiao.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-regiao-list',
@@ -35,7 +37,8 @@ export class RegiaoListComponent implements OnInit, OnDestroy {
 
   constructor(
     private regiaoService: RegiaoService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   public ngOnInit(): void {
@@ -152,9 +155,24 @@ export class RegiaoListComponent implements OnInit, OnDestroy {
   }
 
   public excluirRegiao(id: string): void {
-    if (confirm(this.textos.ConfirmacaoExclusao)) {
-      this.regiaoService.excluir(id).subscribe(() => this.carregarRegioes());
-    }
+    Swal.fire({
+      title: 'Confirmar exclusão',
+      text: this.textos.ConfirmacaoExclusao,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#2b3e50',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.regiaoService.excluir(id).subscribe((r) => {
+          this.toastr.success(r.mensagens);
+          this.carregarRegioes();
+        });
+      }
+    });
   }
 
   public alterarStatus(regiao: IRegiao): void {

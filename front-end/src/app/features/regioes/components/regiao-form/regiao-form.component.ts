@@ -8,6 +8,7 @@ import { RegiaoService } from '../../services/regiao.service';
 import { ICidade } from 'src/app/shared/models/cidade.interface';
 import { IEstado } from 'src/app/shared/models/estado.interface';
 import { IRegiaoDetalhe } from '../../models/regiao-detalhe.interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-regiao-form',
@@ -62,7 +63,8 @@ export class RegiaoFormComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private regiaoService: RegiaoService
+    private regiaoService: RegiaoService,
+    private toastr: ToastrService
   ) { }
 
   public ngOnInit(): void {
@@ -214,7 +216,8 @@ export class RegiaoFormComponent implements OnInit, AfterViewInit {
                      ? this.regiaoService.atualizar(this.regiaoId!, regiao)
                      : this.regiaoService.salvar(regiao);
 
-    request$.subscribe(() => {
+    request$.subscribe((r) => {
+      this.toastr.success(r.mensagens);
       this.router.navigate(['/regioes']);
     });
   }

@@ -50,7 +50,7 @@ namespace Fretefy.Test.Domain.Services
 
             Regiao regiao = new Regiao(nome, cidadesIds, estadosIds);
 
-            if (regiao.Invalido)
+            if (regiao.Invalido || Invalido)
             {
                 AdicionarRangeMensagens(regiao.Mensagens);
                 return;
