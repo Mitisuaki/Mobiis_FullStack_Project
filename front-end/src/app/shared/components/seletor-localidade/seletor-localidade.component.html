@@ -1,0 +1,16 @@
+<ng-select
+  [items]="opcoes"
+  [multiple]="false"
+  [bindLabel]="bindLabel"
+  [loading]="carregando"
+  [typeahead]="buscaSubject"
+  [disabled]="isDisabled"
+  [clearable]="true"
+  [(ngModel)]="valorSelecionado"
+  (change)="atualizarValor()"
+  (scrollToEnd)="aoRolarFinal()"
+  [placeholder]="textos.Placeholder"
+  [loadingText]="textos.Carregando"
+  [notFoundText]="textos.NenhumaEncontrada"
+  (blur)="aoSair()"
+></ng-select>

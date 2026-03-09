@@ -1,0 +1,32 @@
+<div class="modal-overlay-custom" *ngIf="dadosModal" (click)="fechar()">
+
+  <div class="modal-box shadow-lg" (click)="$event.stopPropagation()">
+
+    <div class="modal-header d-flex justify-content-between align-items-center py-3 px-4 border-bottom">
+      <h5 class="m-0 font-weight-bold modal-title-custom">{{ dadosModal?.titulo || 'Notificações' }}</h5>
+      <button type="button" class="btn-close-clean" (click)="fechar()">&times;</button>
+    </div>
+
+    <div class="modal-body p-0">
+      <div class="error-row" *ngFor="let msg of dadosModal?.mensagens">
+        <div class="error-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div class="error-text font-weight-bold text-dark">
+          {{ msg }}
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer bg-light d-flex justify-content-center border-top py-3">
+      <button class="btn btn-outline-secondary px-5 font-weight-bold btn-fechar-custom" (click)="fechar()">
+        Fechar
+      </button>
+    </div>
+
+  </div>
+</div>

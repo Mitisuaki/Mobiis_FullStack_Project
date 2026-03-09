@@ -1,42 +1,76 @@
-﻿using Fretefy.Test.Domain.Entities;
-using Fretefy.Test.Domain.Interfaces;
+﻿using Fretefy.Test.Application.Interfaces;
+using Fretefy.Test.Application.Models.Cidade;
+using Fretefy.Test.Domain.DTOs;
+using Fretefy.Test.Domain.Resources;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Fretefy.Test.WebApi.Controllers
 {
     [Route("api/cidade")]
     [ApiController]
-    public class CidadeController : ControllerBase
+    public class CidadeController : Controller
     {
-        private readonly ICidadeService _cidadeService;
+        private readonly ICidadeAppService _cidadeAppService;
 
-        public CidadeController(ICidadeService cidadeService)
+        public CidadeController(ICidadeAppService cidadeAppService)
         {
-            _cidadeService = cidadeService;
+            _cidadeAppService = cidadeAppService;
+        }
+        [HttpGet("{cidadeId}")]
+        public async Task<IActionResult> Get([FromQuery] Guid cidadeId, CancellationToken cancellationToken = default)
+        {
+            if (cidadeId == Guid.Empty)
+            {
+                return BadRequest(new { Mensagens = MensagensCidadeControllerResource.CidadeIdInvalido});
+            }
+
+            CidadeDTO cidadesPorEstado = await _cidadeAppService.ObterPorIdAsync(cidadeId, cancellationToken);
+            if (cidadesPorEstado != null)
+            {
+                return Ok(cidadesPorEstado);
+            }
+
+            return NotFound();
         }
 
         [HttpGet]
-        public IActionResult List([FromQuery] string uf, [FromQuery] string terms)
+        public async Task<IActionResult> GetPaginado([FromQuery] string nome, 
+                                                     [FromQuery] int page = 1,
+                                                     [FromQuery] int pageSize = 50,
+                                                     [FromQuery] Guid[] estadosIgnorados = null,
+                                                     CancellationToken cancellationToken = default)
         {
-            IEnumerable<Cidade> cidades;
+            if (page <= 0 || pageSize <= 0)
+            {
+                return BadRequest(new { Mensagens = MensagensCidadeControllerResource.ConfigPaginacaoInvalido});
+            }
 
-            if (!string.IsNullOrEmpty(terms))
-                cidades = _cidadeService.Query(terms);
-            else if (!string.IsNullOrEmpty(uf))
-                cidades = _cidadeService.ListByUf(uf);
-            else
-                cidades = _cidadeService.List();
+            PagedResult<CidadeDTO> cidadesPaginadas = await _cidadeAppService.ObterTodasPaginadoAsync(nome, page, pageSize, estadosIgnorados, cancellationToken);
+            
+            if (cidadesPaginadas != null && cidadesPaginadas.Items.Any())
+            {
+                return Ok(cidadesPaginadas);
+            }
 
-            return Ok(cidades);
+            return NotFound();
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(Guid id)
+        [HttpGet("todas")]
+        public async Task<IActionResult> SelecionarTodasCidades(CancellationToken cancellationToken)
         {
-            var cidades = _cidadeService.Get(id);
-            return Ok(cidades);
+            List<CidadeDTO> cidades = await _cidadeAppService.SelecionarTodas(cancellationToken);
+            
+            if (cidades != null && cidades.Any())
+            {
+                return Ok(cidades);
+            }
+
+            return NotFound();
         }
     }
 }

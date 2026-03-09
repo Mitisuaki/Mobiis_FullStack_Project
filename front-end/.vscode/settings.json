@@ -1,0 +1,5 @@
+{
+    "angular.enable-strict-mode-prompt": false,
+    "liveServer.settings.multiRootWorkspaceName": "front-end",
+    "type": "microsoft-edge",
+}

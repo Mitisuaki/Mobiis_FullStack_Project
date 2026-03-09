@@ -1,0 +1,102 @@
+.containerRegioes {
+  max-width: 1200px;
+}
+
+.topButtons {
+  gap: 1rem;
+}
+
+.table-fixed {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* FIX: Aplicado globalmente (Mobile e Desktop) para remover scroll horizontal e permitir dropdowns flutuantes */
+.table-responsive {
+  overflow: visible !important;
+  border: none;
+}
+
+.dropdown-export,
+.dropdown-acoes {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1050;
+}
+
+.dropdown-filtro-nome {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 280px;
+  z-index: 1050;
+}
+
+.dropdown-filtro-status {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 160px;
+  z-index: 1050;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.col-nome {
+  width: auto;
+}
+
+.col-status {
+  width: 130px;
+}
+
+.col-acoes {
+  width: 110px;
+}
+
+.cell-nome-content {
+  width: 100%;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.bg-custom-blue {
+  background-color: #2b3e50 !important;
+}
+
+.border-custom-blue {
+  border-color: #2b3e50 !important;
+}
+
+@media (max-width: 576px) {
+  .col-status {
+    width: 90px;
+  }
+  .col-acoes {
+    width: 90px;
+  }
+  .table td,
+  .table th {
+    padding: 0.5rem 0.3rem !important;
+    font-size: 0.85rem;
+  }
+  .badge {
+    padding: 0.3em 0.5em !important;
+  }
+  .btn-sm {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.75rem;
+  }
+}
+
+.dropdown-item {
+  cursor: pointer;
+  &:hover {
+    background-color: #f1f3f5;
+  }
+}

@@ -1,13 +1,16 @@
-﻿using Fretefy.Test.Domain.Entities;
+﻿using Fretefy.Test.Domain.DTOs;
+using Fretefy.Test.Domain.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Fretefy.Test.Domain.Interfaces.Repositories
 {
-    public interface ICidadeRepository
+    public interface ICidadeRepository : IBaseRepository<Cidade>
     {
-        IQueryable<Cidade> List();
-        IEnumerable<Cidade> ListByUf(string uf);
-        IEnumerable<Cidade> Query(string terms);
+        Task<Cidade> SelecionarEntidadeAsyncComInclude(Expression<Func<Cidade, bool>> expression, CancellationToken cancellationToken = default);
+        Task<List<Cidade>> SelecionarTodosAsyncComInclude(CancellationToken cancellationToken = default);
     }
 }
