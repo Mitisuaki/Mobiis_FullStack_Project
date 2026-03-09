@@ -44,7 +44,7 @@ namespace Fretefy.Test.WebApi
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseCors(x => x.WithOrigins(CORS.AllowedOrigins)
+            app.UseCors(x => x.AllowAnyOrigin()
                               .AllowAnyMethod()
                               .AllowAnyHeader());
             app.UseAuthorization();
