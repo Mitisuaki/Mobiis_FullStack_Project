@@ -1,14 +1,18 @@
-﻿using Fretefy.Test.Domain.Entities;
+﻿using Fretefy.Test.Domain.DTOs;
+using Fretefy.Test.Domain.Entities;
+using Fretefy.Test.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Fretefy.Test.Domain.Interfaces
 {
-    public interface ICidadeService
+    public interface ICidadeService : IBaseService<Cidade>
     {
-        Cidade Get(Guid id);
-        IEnumerable<Cidade> List();
-        IEnumerable<Cidade> ListByUf(string uf);
-        IEnumerable<Cidade> Query(string terms);
+        Task<Cidade> SelecionarEntidadeAsyncComInclude(Expression<Func<Cidade, bool>> expression, CancellationToken cancellationToken = default);
+        Task<PagedResult<Cidade>> SelecionarPaginadoAsync(string nome, int page, int pageSize, Guid[] estadosIgnorados = null, CancellationToken cancellationToken = default);
+        Task<List<Cidade>> SelecionarTodosAsyncComInclude(CancellationToken cancellationToken = default);
     }
 }

@@ -1,24 +1,36 @@
+using Fretefy.Test.Domain.Resources;
 using Fretefy.Test.Infra.EntityFramework;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Fretefy.Test.WebApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            IHost host = CreateHostBuilder(args).Build();
 
-            // Apenas devido ao uso do InMemory
-            using (var scope = host.Services.CreateScope())
+            using IServiceScope scope = host.Services.CreateScope();
+            ILogger<Program> logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            BaseDbContext context = scope.ServiceProvider.GetRequiredService<BaseDbContext>();
+            try
             {
-                var context = scope.ServiceProvider.GetRequiredService<TestDbContext>();
-                context.Database.EnsureCreated();
+                logger.LogInformation(ProgramLogResource.IniciandoMigrations);
+                await context.Database.MigrateAsync();
+                logger.LogInformation(ProgramLogResource.SucessoMigrations);
+            }
+            catch (System.Exception ex)
+            {
+                logger.LogError(ex, ProgramLogResource.ErroMigrations);
+                throw;
             }
 
-            host.Run();
+            await host.RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

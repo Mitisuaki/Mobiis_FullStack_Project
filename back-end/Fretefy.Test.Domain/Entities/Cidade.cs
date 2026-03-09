@@ -1,25 +1,36 @@
-﻿using System;
+﻿using Fretefy.Test.Domain.Resources.Validacao;
+using System;
 
 namespace Fretefy.Test.Domain.Entities
 {
-    public class Cidade : IEntity
-    {
-        public Cidade()
-        {
-        
-        }
+    public class Cidade : Entity
+    {        
+        public string Nome { get; private set; }
+        public Guid EstadoId { get; private set; }
 
-        public Cidade(string nome, string uf)
+        public virtual Estado Estado { get; private set; }
+
+        public Cidade() { }
+
+        public Cidade(string nome, Guid estadoId)
         {
             Id = Guid.NewGuid();
             Nome = nome;
-            UF = uf;
+            EstadoId = estadoId;
+
+            Validar();
         }
 
-        public Guid Id { get; set; }
-
-        public string Nome { get; set; }
-
-        public string UF { get; set; }
+        private void Validar()
+        {
+            if (string.IsNullOrWhiteSpace(Nome))
+            {
+                AdicionarMensagem(ValidacaoCidadeResource.CidadeNomeObrigatorio);
+            }
+            if (EstadoId == Guid.Empty)
+            {
+                AdicionarMensagem(ValidacaoCidadeResource.CidadeNaoVinculadaEstado);
+            }
+        }
     }
 }

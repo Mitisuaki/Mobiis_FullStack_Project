@@ -1,24 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './modules/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/regioes',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    component: HomeComponent
+  { path: 'regioes',
+    loadChildren: () => import('./features/regioes/regioes.module').then(m => m.RegioesModule)
   },
   {
-    path: 'regiao',
-    loadChildren: () => import('./modules/regiao/regiao.module').then(m => m.RegiaoModule)
-  },
-  { 
-    path: '**', 
-    redirectTo: '/home' 
+    path: '**',
+    redirectTo: '/home'
   }
 ];
 

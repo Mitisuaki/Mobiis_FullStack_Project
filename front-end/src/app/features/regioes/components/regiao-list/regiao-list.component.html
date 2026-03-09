@@ -1,0 +1,127 @@
+<div class="container-fluid mt-4 mb-5 d-flex justify-content-center">
+  <div class="containerRegioes w-100">
+    <div class="card-header bg-custom-blue text-white d-flex flex-wrap justify-content-between align-items-center py-3 px-4 rounded-top">
+      <h4 class="mb-0 font-weight-bold">{{ textos.Titulo }}</h4>
+
+      <div class="d-flex align-items-center topButtons">
+        <div class="position-relative menu-flutuante-container">
+          <button class="btn btn-light font-weight-bold shadow-sm" (click)="toggleExport($event)" [disabled]="carregando || regioes.length === 0">
+            Exportar &#9662;
+          </button>
+          <div class="dropdown-menu shadow dropdown-export" [class.show]="exportDropdownAberto">
+            <button class="dropdown-item" (click)="exportar(TipoExportacaoEnum.CSV)">{{ textos.BotaoExportarCsv }}</button>
+            <button class="dropdown-item" (click)="exportar(TipoExportacaoEnum.Excel)">{{ textos.BotaoExportarExcel }}</button>
+          </div>
+        </div>
+
+        <button class="btn btn-success font-weight-bold shadow-sm" (click)="novaRegiao()">
+          {{ textos.BotaoNovo }}
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white border border-top-0 rounded-bottom shadow-sm p-4">
+      <div *ngIf="!carregando && regioes.length === 0" class="text-center p-5 text-muted">
+        <h5 class="font-weight-bold mb-2">Nenhum dado encontrado.</h5>
+        <p class="mb-0">A tabela no momento não possui registros. Adicione um novo para visualizar.</p>
+      </div>
+
+      <div class="table-responsive" *ngIf="!carregando && regioes.length > 0">
+        <table class="table table-hover table-fixed mb-0 w-100">
+          <thead class="text-secondary">
+            <tr>
+              <th scope="col" class="border-0 col-nome text-left align-middle position-relative menu-flutuante-container">
+                <div class="d-flex align-items-center cursor-pointer" (click)="toggleFiltro($event)">
+                  {{ textos.TabelaNome }} <span class="ml-1 text-primary">&#9662;</span>
+                </div>
+
+                <div class="dropdown-menu shadow p-3 dropdown-filtro-nome" [class.show]="filtroMenuAberto" (click)="$event.stopPropagation()">
+                  <div class="form-group mb-3">
+                    <label class="small font-weight-bold text-dark">Buscar por nome</label>
+                    <input type="text" class="form-control" [value]="termoFiltro" (input)="onSearchInput($event)" placeholder="Digite para filtrar...">
+                  </div>
+                  <hr class="my-2">
+                  <div class="d-flex flex-column gap-2">
+                    <button class="btn btn-sm btn-light text-left" (click)="alterarOrdenacao(false)">Ordenar A-Z</button>
+                    <button class="btn btn-sm btn-light text-left" (click)="alterarOrdenacao(true)">Ordenar Z-A</button>
+                  </div>
+                  <hr class="my-2">
+                  <button class="btn btn-sm btn-outline-danger w-100" (click)="limparFiltro()">Limpar</button>
+                </div>
+              </th>
+
+              <th scope="col" class="border-0 col-status text-center align-middle position-relative menu-flutuante-container">
+                <div class="d-flex align-items-center justify-content-center cursor-pointer" (click)="toggleFiltroStatus($event)">
+                  {{ textos.TabelaStatus }} <span class="ml-1 text-primary">&#9662;</span>
+                </div>
+
+                <div class="dropdown-menu shadow py-2 dropdown-filtro-status" [class.show]="filtroStatusMenuAberto">
+                  <button class="dropdown-item font-weight-bold" (click)="filtrarPorStatus(null)">Todos</button>
+                  <button class="dropdown-item text-success font-weight-bold" (click)="filtrarPorStatus(true)">Apenas Ativos</button>
+                  <button class="dropdown-item text-danger font-weight-bold" (click)="filtrarPorStatus(false)">Apenas Inativos</button>
+                </div>
+              </th>
+
+              <th scope="col" class="border-0 col-acoes text-right align-middle pr-4">
+                {{ textos.TabelaAcoes }}
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let regiao of regioesPaginadas">
+
+              <td class="align-middle text-left text-dark">
+                <div class="cell-nome-content" title="{{ regiao.nome }}">
+                  {{ regiao.nome }}
+                </div>
+              </td>
+
+              <td class="align-middle text-center col-status">
+                <span class="badge px-3 py-2 text-white" [ngClass]="regiao.ativo ? 'bg-success' : 'bg-danger'">
+                  {{ regiao.ativo ? textos.StatusAtivo : textos.StatusInativo }}
+                </span>
+              </td>
+
+              <td class="align-middle text-right col-acoes pr-4">
+                <div class="position-relative d-inline-block text-left menu-flutuante-container">
+                  <button class="btn btn-sm btn-light border font-weight-bold" (click)="toggleAcoes(regiao.id, $event)">
+                    Ações &#8942;
+                  </button>
+                  <div class="dropdown-menu shadow dropdown-acoes" [class.show]="acoesDropdownId === regiao.id">
+                    <button class="dropdown-item" (click)="editarRegiao(regiao.id)">Editar</button>
+                    <button class="dropdown-item" (click)="alterarStatus(regiao)">{{ regiao.ativo ? 'Inativar' : 'Ativar' }}</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item text-danger" (click)="excluirRegiao(regiao.id)">Excluir</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <nav *ngIf="totalPaginas > 1" class="mt-4">
+        <ul class="pagination justify-content-center mb-0">
+          <li class="page-item" [class.disabled]="paginaAtual === 1">
+            <button class="page-link text-dark" (click)="mudarPagina(paginaAtual - 1)">Anterior</button>
+          </li>
+
+          <li class="page-item" *ngFor="let page of paginasVisiveis" [class.active]="paginaAtual === page">
+            <button class="page-link"
+                    [ngClass]="paginaAtual === page ? 'bg-custom-blue border-custom-blue text-white' : 'text-dark'"
+                    (click)="mudarPagina(page)">
+              {{ page }}
+            </button>
+          </li>
+
+          <li class="page-item" [class.disabled]="paginaAtual === totalPaginas">
+            <button class="page-link text-dark" (click)="mudarPagina(paginaAtual + 1)">Próximo</button>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
