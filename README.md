@@ -21,7 +21,7 @@ Além de cumprir todos os requisitos funcionais solicitados para o fluxo do CRUD
 <img width="3840" height="2076" alt="image" src="https://github.com/user-attachments/assets/21dcac0e-50ef-4a46-ac38-273a26c27493" />
 <img width="3840" height="2076" alt="image" src="https://github.com/user-attachments/assets/1ae19bda-67cc-4c7a-b597-f56c2ea20cda" />
 
-- Back-end (Render): [Acessar a API] (https://mobiis-fullstack-project-backend.onrender.com/api) (Swagger indisponível em prod, rota base ativa)
+- Back-end (Render): [Acessar a API](https://mobiis-fullstack-project-backend.onrender.com/api) (Swagger indisponível em prod, rota base ativa)
 
 <img width="3840" height="2076" alt="image" src="https://github.com/user-attachments/assets/246aa48d-ca51-4720-8360-4dc97c16dc0f" />
 <img width="3840" height="2076" alt="image" src="https://github.com/user-attachments/assets/cdf8a3aa-b0e0-4341-b720-b30eac446a84" />
@@ -46,7 +46,7 @@ Além de cumprir todos os requisitos funcionais solicitados para o fluxo do CRUD
 ## 💻 Front-end e UX (Angular 10)
 
 - Paginação Customizada: Otimizei a visualização da listagem de regiões criando um sistema dinâmico de paginação no front-end.
-- 
+  
 - Notificações não-obstrutivas (Toasts): Substituí os limitados alert() nativos do navegador pelo ngx-toastr, proporcionando um feedback visual de sucesso/erro profissional e elegante no canto da tela.
 
 - Modais e Confirmações Seguras: Para evitar a quebra de usabilidade com o confirm() nativo, implementei a biblioteca SweetAlert2 para interceptar ações críticas (como a exclusão), garantindo uma experiência contínua.
